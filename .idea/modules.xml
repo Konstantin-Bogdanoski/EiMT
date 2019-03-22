@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/EiMT_Lab01.iml" filepath="$PROJECT_DIR$/.idea/EiMT_Lab01.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/EiMT_Laboratories.iml" filepath="$PROJECT_DIR$/.idea/EiMT_Laboratories.iml" />
       <module fileurl="file://$PROJECT_DIR$/KB_Lab01/KB_Lab01.iml" filepath="$PROJECT_DIR$/KB_Lab01/KB_Lab01.iml" />
     </modules>
   </component>
