@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Products</title>
@@ -11,9 +11,12 @@
 </head>
 <body>
 <div class="container">
-    <ul class="list-group" th:each="product : ${productList}">
+    <h1>LIST OF ALL PRODUCTS</h1>
+    <ul class="list-group list" th:each="product : ${productList}">
         <li class="list-group-item list-group-item-success" th:text="${product.name}"></li>
     </ul>
+    <br>
+    <button class="btn btn-primary" onclick="location.href='/add-product'">Add product</button>
 </div>
 </body>
 </html>

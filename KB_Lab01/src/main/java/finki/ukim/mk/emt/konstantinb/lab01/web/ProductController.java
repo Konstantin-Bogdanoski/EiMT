@@ -14,8 +14,11 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
+/*Why use RestController instead of Controller??
+While using Controller we get an error, the "server" thinks
+that there is an infinite loop while trying to connect to the page "/products"*/
 @Controller
-@RequestMapping("/product")
+@RequestMapping("/")
 public class ProductController {
     private long counter;
     private long counterCat;
@@ -54,13 +57,19 @@ public class ProductController {
         categories.add(c1);
     }
 
-    @GetMapping("/")
+    @GetMapping("productPage")
     public String products(Model model){
         model.addAttribute("productList", productList);
-        return "products";
+        return "productPage";
     }
 
-    @PostMapping("/")
+    @GetMapping("add-product")
+    public String addProduct(Model model){
+        model.addAttribute("productList", productList);
+        return "add-product";
+    }
+
+    @PostMapping("add-product")
     public String addProduct(HttpServletRequest request, Model model){
         String name = request.getParameter("name");
         long categoryID = Long.parseLong(request.getParameter("category"));//BE CAREFUL
@@ -83,7 +92,7 @@ public class ProductController {
         manufacturer.setID(manufacturerID);
         manufacturer.setName(manufacturerName);
 
-        if(!manufacturerList.contains(manufacturer))
+        if(!manufacturerList.contains(manufacturer)) // ADD NEW MANUFACTURER
             manufacturerList.add(manufacturer);
 
 
@@ -97,7 +106,7 @@ public class ProductController {
 
         productList.add(newProduct);
         model.addAttribute("productList", productList);
-        return "products";
+        return "add-product";
     }
 
     private long getNextId() {return counter++;}
