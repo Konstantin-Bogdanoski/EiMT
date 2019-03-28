@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Products</title>
     <link rel="stylesheet" href="/assets/vendor/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/css/productPage.css">
     <script src="/assets/vendor/jquery/jquery.min.js"></script>
     <script src="/assets/vendor/jquery-migrate/jquery-migrate.min.js"></script>
     <script src="/assets/vendor/popper.min.js"></script>
@@ -13,7 +14,11 @@
 <div class="container">
     <h1>LIST OF ALL PRODUCTS</h1>
     <ul class="list-group list" th:each="product : ${productList}">
-        <li class="list-group-item list-group-item-success" th:text="${product.name}"></li>
+        <li class="list-group-item list-group-item-success">
+            <span th:text="${product.name}"></span>
+            <span th:text="${product.manufacturer.name}"></span>
+            <img th:src="${product.linkToImg}" class="productImg">
+        </li>
     </ul>
     <br>
     <button class="btn btn-primary" onclick="location.href='/add-product'">Add product</button>

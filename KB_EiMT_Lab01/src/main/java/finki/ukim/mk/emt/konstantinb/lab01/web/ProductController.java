@@ -55,6 +55,21 @@ public class ProductController {
         productList.add(p1);
         manufacturerList.add(m1);
         categories.add(c1);
+
+        Manufacturer m2 = new Manufacturer();
+        m2.setID(getNextManId());
+        m2.setName("Adidas");
+
+        Product p2 = new Product();
+        p2.setCategory(c1);
+        p2.setDescription("Adidas Basketball shoes");
+        p2.setId(getNextId());
+        p2.setManufacturer(m2);
+        p2.setName("Harden Vol.3");
+        p2.setLinkToImg("https://www.hoopjordan.net/wp-content/uploads/2018/10/adidas-Harden-Vol-3-White-Black-For-Sale.jpeg.jpg");
+
+        productList.add(p2);
+        manufacturerList.add(m2);
     }
 
     @GetMapping("productPage")
