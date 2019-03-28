@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Products</title>
+    <link rel="stylesheet" href="../static/assets/vendor/bootstrap/bootstrap.min.css">
+    <script src="../static/assets/vendor/jquery/jquery.min.js"></script>
+    <script src="../static/assets/vendor/jquery-migrate/jquery-migrate.min.js"></script>
+    <script src="../static/assets/vendor/popper.min.js"></script>
+    <script src="../static/assets/vendor/bootstrap/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container">
+    <h1>LIST OF ALL PRODUCTS</h1>
+    <ul class="list-group list" th:each="product : ${productList}">
+        <li class="list-group-item list-group-item-success" th:text="${product.name}"></li>
+    </ul>
+    <br>
+    <button class="btn btn-primary" onclick="location.href='/add-product'">Add product</button>
+</div>
+</body>
+</html>
