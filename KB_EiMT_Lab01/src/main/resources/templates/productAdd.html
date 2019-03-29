@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Products</title>
+    <link rel="stylesheet" href="/assets/vendor/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/css/productAdd.css">
+    <script src="/assets/vendor/jquery/jquery.min.js"></script>
+    <script src="/assets/vendor/jquery-migrate/jquery-migrate.min.js"></script>
+    <script src="/assets/vendor/popper.min.js"></script>
+    <script src="/assets/vendor/bootstrap/bootstrap.min.js"></script>
+</head>
+<body>
+<form id="inputForm" class="form" enctype="multipart/form-data" method="post" action="/productAdd">
+    <label for="inputForm">ADD NEW PRODUCT</label>
+    <div class="form-group">
+        <label for="productName">Name</label>
+        <input class="form-control" type="text" id="productName" name="name" th:value="*{name}" required/>
+    </div>
+    <div class="form-group">
+        <label for="productDescription">Description</label>
+        <input class="form-control" type="text" id="productDescription" name="description" th:value="*{description}" required/>
+    </div>
+    <div class="form-group">
+        <label for="productImg">Image</label>
+        <input class="form-control" type="text" id="productImg" name="img" th:value="*{img}" required/>
+    </div>
+    <div class="form-group">
+        <label for="productManufacturer">Manufacturer</label>
+        <select id="productManufacturer" class="form-group" name="manufacturer" required>
+            <option value="">Choose manufacturer</option>
+            <option th:each="m : ${manufacturerList}"
+                    th:text="${m.name}"
+                    th:value="${m.id}"/>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="category">Category</label>
+        <select id="category" class="form-group" name="category" required>
+            <option value="">Choose category</option>
+            <option th:each="c : ${categories}"
+                    th:text="${c.name}"
+                    th:value="${c.id}"/>
+        </select>
+    </div>
+    <div class="form-group">
+        <button class="btn btn-primary" type="submit">Confirm</button>
+    </div>
+</form>
+</body>
+</html>

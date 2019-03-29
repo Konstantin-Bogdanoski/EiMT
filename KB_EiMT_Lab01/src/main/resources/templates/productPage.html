@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Products</title>
@@ -14,14 +14,14 @@
 <div class="container">
     <h1>LIST OF ALL PRODUCTS</h1>
     <ul class="list-group list" th:each="product : ${productList}">
-        <li class="list-group-item list-group-item-success">
-            <span th:text="${product.name}"></span>
-            <span th:text="${product.manufacturer.name}"></span>
+        <li class="list-group-item myList">
+            <span th:text="${product.name}" class="myList"></span>
+            <span th:text="${product.manufacturer.name}" class="myList"></span>
             <img th:src="${product.linkToImg}" class="productImg">
         </li>
     </ul>
     <br>
-    <button class="btn btn-primary" onclick="location.href='/add-product'">Add product</button>
+    <button class="btn btn-primary" onclick="location.href='/productAdd'">Add new product</button>
 </div>
 </body>
 </html>

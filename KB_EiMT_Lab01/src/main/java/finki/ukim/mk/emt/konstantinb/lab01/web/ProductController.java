@@ -1,18 +1,23 @@
 package finki.ukim.mk.emt.konstantinb.lab01.web;
 
+import finki.ukim.mk.emt.konstantinb.lab01.exceptions.CategoryNotFoundException;
+import finki.ukim.mk.emt.konstantinb.lab01.exceptions.ManufacturerNotFoundException;
 import finki.ukim.mk.emt.konstantinb.lab01.models.Category;
 import finki.ukim.mk.emt.konstantinb.lab01.models.Manufacturer;
 import finki.ukim.mk.emt.konstantinb.lab01.models.Product;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
+import javax.sound.midi.Soundbank;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 /*Why use RestController instead of Controller??
 While using Controller we get an error, the "server" thinks
@@ -32,9 +37,9 @@ public class ProductController {
         counter = 1L;
         counterCat = 1L;
         counterMan = 1L;
-        productList = new ArrayList<Product>();
-        manufacturerList = new ArrayList<Manufacturer>();
-        categories = new ArrayList<Category>();
+        productList = new ArrayList<>();
+        manufacturerList = new ArrayList<>();
+        categories = new ArrayList<>();
 
         Category c1 = new Category();
         c1.setID(getNextCatId());
@@ -78,50 +83,49 @@ public class ProductController {
         return "productPage";
     }
 
-    @GetMapping("add-product")
+    @GetMapping("productAdd")
     public String addProduct(Model model){
         model.addAttribute("productList", productList);
-        return "add-product";
+        return "productAdd";
     }
 
-    @PostMapping("add-product")
+    @ExceptionHandler({ManufacturerNotFoundException.class, CategoryNotFoundException.class})
+    @PostMapping("productAdd")
     public String addProduct(HttpServletRequest request, Model model){
         String name = request.getParameter("name");
-        long categoryID = Long.parseLong(request.getParameter("category"));//BE CAREFUL
-        String categoryName = request.getParameter("catName");
-        long manufacturerID = Long.parseLong(request.getParameter("manufacturer"));
-        String manufacturerName = request.getParameter("manName");
+
+        Long categoryID = Long.parseLong(request.getParameter("categoryID"));//BE CAREFUL
+        Optional<Category> category = categories.stream().filter(cat -> {
+            return cat.getID()==(categoryID);
+        }).findAny();
+        if(!category.isPresent()){
+            throw new CategoryNotFoundException();
+        }
+
+        Long manufacturerID = Long.parseLong(request.getParameter("manufacturerID"));
+        Optional<Manufacturer> manufacturer = manufacturerList.stream().filter(man -> {
+           return man.getID()==manufacturerID;
+        }).findAny();
+        if(!manufacturer.isPresent()){
+            throw new ManufacturerNotFoundException();
+        }
+
         String description = request.getParameter("description");
         String imgLink = request.getParameter("img-link");
         long pID = getNextId();
-
-        Category category = new Category();
-        category.setID(categoryID);
-        category.setName(categoryName);
-
-        if(!categories.contains(category)) // ADD NEW CATEGORY
-            categories.add(category);
-
-
-        Manufacturer manufacturer = new Manufacturer();
-        manufacturer.setID(manufacturerID);
-        manufacturer.setName(manufacturerName);
-
-        if(!manufacturerList.contains(manufacturer)) // ADD NEW MANUFACTURER
-            manufacturerList.add(manufacturer);
 
 
         Product newProduct = new Product();
         newProduct.setName(name);
         newProduct.setLinkToImg(imgLink);
-        newProduct.setManufacturer(manufacturer);
-        newProduct.setCategory(category);
+        newProduct.setManufacturer(manufacturer.get());
+        newProduct.setCategory(category.get());
         newProduct.setDescription(description);
         newProduct.setId(pID);
 
         productList.add(newProduct);
         model.addAttribute("productList", productList);
-        return "add-product";
+        return "productAdd";
     }
 
     private long getNextId() {return counter++;}
