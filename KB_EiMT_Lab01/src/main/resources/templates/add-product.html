@@ -4,12 +4,27 @@
     <meta charset="UTF-8">
     <title>Products</title>
     <link rel="stylesheet" href="/assets/vendor/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/css/add-product.css">
     <script src="/assets/vendor/jquery/jquery.min.js"></script>
     <script src="/assets/vendor/jquery-migrate/jquery-migrate.min.js"></script>
     <script src="/assets/vendor/popper.min.js"></script>
     <script src="/assets/vendor/bootstrap/bootstrap.min.js"></script>
 </head>
 <body>
-    <p>HELLOOOO</p>
+<form name="Input New Product" class="form" method="post">
+    <div class="form-group">
+        <label for="productName">Product Name</label>
+        <input id="productName" type="productName" class="form-control" th:field="*{product.name}" name="name" placeholder="Enter product name" required>
+    </div>
+    <div>
+        <label for="productDescription">Product Description</label>
+        <input id="productDescription" type="productDescription" class="form-control" th:field="*{product.description}" name="description" placeholder="Please insert short description" required>
+    </div>
+    <div>
+        <label for="productManufacturer">Product Manufacturer</label>
+        <input id="productManufacturer" type="productManufacturer" class="form-control" th:field="*{product.description}" name="description" placeholder="Please insert short description" required>
+    </div>
+
+</form>
 </body>
 </html>
