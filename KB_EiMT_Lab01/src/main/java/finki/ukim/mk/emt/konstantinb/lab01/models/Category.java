@@ -1,8 +1,8 @@
 package finki.ukim.mk.emt.konstantinb.lab01.models;
 
 public class Category implements Comparable{
-    private long ID;
-    private String name;
+    long ID;
+    String name;
 
     public long getID() {
         return ID;

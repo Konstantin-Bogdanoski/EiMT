@@ -28,9 +28,12 @@ public class ProductController {
     private long counter;
     private long counterCat;
     private long counterMan;
+    private long manufacturerID;
+    private long categoryID;
     private List<Product> productList = null;
     private List<Manufacturer> manufacturerList = null;
     private List<Category> categories = null;
+    private Product product;
 
     @PostConstruct
     public void init(){
@@ -40,6 +43,10 @@ public class ProductController {
         productList = new ArrayList<>();
         manufacturerList = new ArrayList<>();
         categories = new ArrayList<>();
+        manufacturerID = 0;
+        categoryID = 0;
+        product = new Product();
+
 
         Category c1 = new Category();
         c1.setID(getNextCatId());
@@ -63,29 +70,79 @@ public class ProductController {
 
         Manufacturer m2 = new Manufacturer();
         m2.setID(getNextManId());
-        m2.setName("Adidas");
+        m2.setName("Li-Ning");
 
         Product p2 = new Product();
         p2.setCategory(c1);
-        p2.setDescription("Adidas Basketball shoes");
+        p2.setDescription("Lining Basketball shoes");
         p2.setId(getNextId());
         p2.setManufacturer(m2);
-        p2.setName("Harden Vol.3");
-        p2.setLinkToImg("https://www.hoopjordan.net/wp-content/uploads/2018/10/adidas-Harden-Vol-3-White-Black-For-Sale.jpeg.jpg");
+        p2.setName("Way of Wade 6");
+        p2.setLinkToImg("https://cdn11.bigcommerce.com/s-fqrqhjae/images/stencil/2000x2000/products/772/10029/ABAM089-30-5__35703.1522915136.jpg?c=2");
 
         productList.add(p2);
         manufacturerList.add(m2);
+
+
+        Manufacturer m3 = new Manufacturer();
+        m3.setID(getNextManId());
+        m3.setName("Adidas");
+
+        Product p3 = new Product();
+        p3.setCategory(c1);
+        p3.setDescription("Adidas Basketball shoes");
+        p3.setId(getNextId());
+        p3.setManufacturer(m3);
+        p3.setName("Harden Vol.3");
+        p3.setLinkToImg("https://www.hoopjordan.net/wp-content/uploads/2018/10/adidas-Harden-Vol-3-White-Black-For-Sale.jpeg.jpg");
+
+        productList.add(p3);
+        manufacturerList.add(m3);
+
+        Product p4 = new Product();
+        p4.setCategory(c1);
+        p4.setDescription("Adidas Basketball shoes");
+        p4.setId(getNextId());
+        p4.setManufacturer(m3);
+        p4.setName("Harden Vol.3");
+        p4.setLinkToImg("https://www.hoopjordan.net/wp-content/uploads/2018/10/adidas-Harden-Vol-3-White-Black-For-Sale.jpeg.jpg");
+
+        productList.add(p4);
     }
 
     @GetMapping("productPage")
     public String products(Model model){
         model.addAttribute("productList", productList);
+        model.addAttribute("productList", productList);
+        model.addAttribute("manufacturerList", manufacturerList);
+        model.addAttribute("categories",categories);
+        model.addAttribute("manufacturerID", manufacturerID);
+        model.addAttribute("categoryID", categoryID);
+        model.addAttribute("product", product);
+        return "productPage";
+    }
+
+    @PostMapping("productPage")
+    public String products(HttpServletRequest request, Model model){
+        model.addAttribute("productList", productList);
+        model.addAttribute("productList", productList);
+        model.addAttribute("manufacturerList", manufacturerList);
+        model.addAttribute("categories",categories);
+        model.addAttribute("manufacturerID", manufacturerID);
+        model.addAttribute("categoryID", categoryID);
+        model.addAttribute("product", product);
         return "productPage";
     }
 
     @GetMapping("productAdd")
     public String addProduct(Model model){
         model.addAttribute("productList", productList);
+        model.addAttribute("productList", productList);
+        model.addAttribute("manufacturerList", manufacturerList);
+        model.addAttribute("categories",categories);
+        model.addAttribute("manufacturerID", manufacturerID);
+        model.addAttribute("categoryID", categoryID);
+        model.addAttribute("product", product);
         return "productAdd";
     }
 
@@ -125,6 +182,11 @@ public class ProductController {
 
         productList.add(newProduct);
         model.addAttribute("productList", productList);
+        model.addAttribute("manufacturerList", manufacturerList);
+        model.addAttribute("categories",categories);
+        model.addAttribute("manufacturerID", manufacturerID);
+        model.addAttribute("categoryID", categoryID);
+        model.addAttribute("product", product);
         return "productAdd";
     }
 

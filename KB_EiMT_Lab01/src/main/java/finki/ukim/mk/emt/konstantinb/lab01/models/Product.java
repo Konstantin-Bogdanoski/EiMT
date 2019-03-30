@@ -1,12 +1,12 @@
 package finki.ukim.mk.emt.konstantinb.lab01.models;
 
 public class Product implements Comparable{
-    private long id;
-    private String name;
-    private String description;
-    private String linkToImg;
-    private Category category;
-    private Manufacturer manufacturer;
+    long id;
+    String name;
+    String description;
+    String linkToImg;
+    Category category;
+    Manufacturer manufacturer;
 
     public long getId() {
         return id;

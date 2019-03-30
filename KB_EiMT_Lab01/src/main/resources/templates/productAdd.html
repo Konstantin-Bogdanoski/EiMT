@@ -11,36 +11,36 @@
     <script src="/assets/vendor/bootstrap/bootstrap.min.js"></script>
 </head>
 <body>
-<form id="inputForm" class="form" enctype="multipart/form-data" method="post" action="/productAdd">
-    <label for="inputForm">ADD NEW PRODUCT</label>
+<form id="inputForm" class="form" enctype="multipart/form-data" method="post" action="/productPage">
+    <strong>ADD NEW PRODUCT</strong>
     <div class="form-group">
         <label for="productName">Name</label>
-        <input class="form-control" type="text" id="productName" name="name" th:value="*{name}" required/>
+        <input class="form-control" type="text" id="productName" name="name" th:field="*{product.name}" placeholder="Product Name" required/>
     </div>
     <div class="form-group">
         <label for="productDescription">Description</label>
-        <input class="form-control" type="text" id="productDescription" name="description" th:value="*{description}" required/>
+        <input class="form-control" type="text" id="productDescription" name="description" th:field="*{product.description}" placeholder="Product Description" required/>
     </div>
     <div class="form-group">
         <label for="productImg">Image</label>
-        <input class="form-control" type="text" id="productImg" name="img" th:value="*{img}" required/>
+        <input class="form-control" type="text" id="productImg" name="img" th:field="*{product.linkToImg}" placeholder="Link To Product Image" required/>
     </div>
     <div class="form-group">
         <label for="productManufacturer">Manufacturer</label>
-        <select id="productManufacturer" class="form-group" name="manufacturer" required>
+        <select id="productManufacturer" class="form-group mySelect" name="manufacturer" th:field="*{manufacturerID}" required>
             <option value="">Choose manufacturer</option>
             <option th:each="m : ${manufacturerList}"
                     th:text="${m.name}"
-                    th:value="${m.id}"/>
+                    th:value="${m.ID}"/>
         </select>
     </div>
     <div class="form-group">
         <label for="category">Category</label>
-        <select id="category" class="form-group" name="category" required>
+        <select id="category" class="form-group mySelect" th:field="*{categoryID}" name="category" required>
             <option value="">Choose category</option>
             <option th:each="c : ${categories}"
                     th:text="${c.name}"
-                    th:value="${c.id}"/>
+                    th:value="${c.ID}"/>
         </select>
     </div>
     <div class="form-group">

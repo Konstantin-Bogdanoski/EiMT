@@ -1,7 +1,19 @@
 .productImg{
     width: 100px;
     height: 100px;
+    display: inline-block;
+    float: right;
 }
 .myList:hover{
     background: darkgray;
+}
+.myList{
+    display: inline-block;
+    float: left;
+    width: 250px;
+}
+
+.myButton{
+    display: block;
+    float: left;
 }

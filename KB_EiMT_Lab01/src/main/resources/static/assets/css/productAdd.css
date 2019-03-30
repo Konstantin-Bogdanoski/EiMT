@@ -10,3 +10,7 @@ body{
     padding: 20px;
     margin: 20px;
 }
+
+.mySelect{
+    width: 200px;
+}
