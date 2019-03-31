@@ -61,7 +61,7 @@ public class ProductController {
         p1.setDescription("Nike Basketball shoes");
         p1.setId(getNextId());
         p1.setManufacturer(m1);
-        p1.setName("Hyperdunk");
+        p1.setName("Hyperdunk X");
         p1.setLinkToImg("https://c.static-nike.com/a/images/t_PDP_1280_v1/f_auto/bpuknsy73bmhmyj0agjj/hyperdunk-basketball-shoe-HlV5cq.jpg");
 
         productList.add(p1);

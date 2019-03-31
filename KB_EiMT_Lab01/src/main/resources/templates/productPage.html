@@ -15,8 +15,9 @@
     <h1>LIST OF ALL PRODUCTS</h1>
     <ul class="list-group list myList" th:each="product : ${productList}">
         <li class="list-group-item myList">
-            <strong th:text="${product.name}" class="myList"></strong>
-            <span th:text="${product.manufacturer.name}" class="myList"></span>
+            <strong th:text="${product.name}"></strong>
+            <br>
+            <span th:text="${product.manufacturer.name}"></span>
             <img th:src="${product.linkToImg}" class="productImg">
         </li>
     </ul>
