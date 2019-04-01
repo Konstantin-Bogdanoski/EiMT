@@ -26,25 +26,25 @@
         <input class="form-control" type="text" id="productImg" name="img" th:field="*{product.linkToImg}" placeholder="Link To Product Image" required/>
     </div>
     <div class="form-group">
-        <label for="productManufacturer">Manufacturer</label>
-        <select id="productManufacturer" class="form-group mySelect" name="manufacturer" th:field="*{manufacturerID}" required>
-            <option value="">Choose manufacturer</option>
+        <label for="manufacturerID">Manufacturer</label>
+        <select id="manufacturerID" class="form-group mySelect" name="manufacturerID" th:field="*{product.manufacturer.ID}" required>
+            <option value="0">Choose manufacturer</option>
             <option th:each="m : ${manufacturerList}"
                     th:text="${m.name}"
                     th:value="${m.ID}"/>
         </select>
     </div>
     <div class="form-group">
-        <label for="category">Category</label>
-        <select id="category" class="form-group mySelect" th:field="*{categoryID}" name="category" required>
-            <option value="">Choose category</option>
+        <label for="categoryID">Category</label>
+        <select id="categoryID" class="form-group mySelect" th:field="*{product.category.ID}" name="categoryID" required>
+            <option value="0">Choose category</option>
             <option th:each="c : ${categories}"
                     th:text="${c.name}"
                     th:value="${c.ID}"/>
         </select>
     </div>
     <div class="form-group">
-        <button class="btn btn-primary" type="submit" onclick="location.href='/productAdd'">Confirm</button>
+        <button class="btn btn-primary" type="submit" onclick="location.href='/productPage'">Confirm</button>
     </div>
 </form>
 </body>

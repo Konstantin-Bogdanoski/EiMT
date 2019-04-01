@@ -151,15 +151,15 @@ public class ProductController {
     public String addProduct(HttpServletRequest request, Model model){
         String name = request.getParameter("name");
 
-        Long categoryID = Long.parseLong(request.getParameter("categoryID"));//BE CAREFUL
+        String categoryID = request.getParameter("category.ID");//BE CAREFUL
         Optional<Category> category = categories.stream().filter(cat -> {
-            return cat.getID()==(categoryID);
+            return cat.getID()==(Long.parseLong(categoryID));
         }).findAny();
         if(!category.isPresent()){
             throw new CategoryNotFoundException();
         }
 
-        Long manufacturerID = Long.parseLong(request.getParameter("manufacturerID"));
+        Long manufacturerID = Long.parseLong(request.getParameter("manufacturer.ID"));
         Optional<Manufacturer> manufacturer = manufacturerList.stream().filter(man -> {
            return man.getID()==manufacturerID;
         }).findAny();
