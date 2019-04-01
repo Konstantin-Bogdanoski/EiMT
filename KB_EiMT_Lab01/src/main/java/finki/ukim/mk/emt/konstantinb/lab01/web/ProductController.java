@@ -43,8 +43,8 @@ public class ProductController {
         productList = new ArrayList<>();
         manufacturerList = new ArrayList<>();
         categories = new ArrayList<>();
-        manufacturerID = 0;
-        categoryID = 0;
+        manufacturerID = 1l;
+        categoryID = 1l;
         product = new Product();
 
 
@@ -104,8 +104,8 @@ public class ProductController {
         p4.setDescription("Adidas Basketball shoes");
         p4.setId(getNextId());
         p4.setManufacturer(m3);
-        p4.setName("Harden Vol.3");
-        p4.setLinkToImg("https://www.hoopjordan.net/wp-content/uploads/2018/10/adidas-Harden-Vol-3-White-Black-For-Sale.jpeg.jpg");
+        p4.setName("AdiRose 9");
+        p4.setLinkToImg("https://n1.sdlcdn.com/imgs/h/s/p/Adidas-D-ROSE-9-2018-SDL828381828-4-b6161.jpeg");
 
         productList.add(p4);
     }
