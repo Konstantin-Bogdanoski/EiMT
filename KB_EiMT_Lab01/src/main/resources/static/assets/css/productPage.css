@@ -5,6 +5,14 @@
   *
   */
 -->
+body{
+    text-align: center;
+}
+
+.myButton{
+    position: absolute;
+}
+
 .productImg{
     width: 100px;
     height: 100px;
@@ -18,9 +26,14 @@
     display: inline-block;
     float: left;
     width: 250px;
+    margin: 5px;
 }
 
-.myButton{
-    display: block;
-    float: left;
+a{
+    color: black;
+    margin: 0;
+    padding: 0;
+}
+a:hover{
+    color: black;
 }

@@ -1,0 +1,27 @@
+<!--
+/**
+  *
+  * @author Konstantin Bogdanoski (konstantin.b@live.com)
+  *
+  */
+-->
+body{
+    text-align: center;
+}
+
+.productIMG{
+    text-align: center;
+    width: inherit;
+}
+
+.myButton{
+    margin: 50px;
+}
+
+.description{
+    text-align: left;
+}
+
+.name{
+    font-size: 30px;
+}

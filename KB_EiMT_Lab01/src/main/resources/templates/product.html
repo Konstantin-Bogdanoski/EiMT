@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Product</title>
+    <link rel="stylesheet" href="/assets/vendor/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/css/product.css">
+    <script src="/assets/vendor/jquery/jquery.min.js"></script>
+    <script src="/assets/vendor/jquery-migrate/jquery-migrate.min.js"></script>
+    <script src="/assets/vendor/popper.min.js"></script>
+    <script src="/assets/vendor/bootstrap/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container">
+    <div class="container">
+        <button onclick="location.href='/productPage'" class="btn btn-primary myButton">Go back to products</button>
+    </div>
+    <div class="container">
+        <h1 th:text="${product.name}" class="name"></h1>
+        <h2 th:text="${product.manufacturer.name}"></h2>
+        <h3 th:text="${product.category.name}"></h3>
+    </div>
+    <div class="container">
+        <p th:text="${product.description}" class="description"></p>
+    </div>
+    <div class="container">
+        <img th:src="${product.linkToImg}" class="productIMG"/>
+    </div>
+</div>
+</body>
+</html>

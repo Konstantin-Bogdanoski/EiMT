@@ -21,13 +21,17 @@
 <div class="container">
     <h1>LIST OF ALL PRODUCTS</h1>
     <ul class="list-group list myList" th:each="product : ${productList}">
+        <a th:href="@{/productPage/productID(ID=${product.id})}">
         <li class="list-group-item myList">
             <strong th:text="${product.name}"></strong>
             <br>
             <span th:text="${product.manufacturer.name}"></span>
             <img th:src="${product.linkToImg}" class="productImg">
         </li>
+        </a>
     </ul>
+</div>
+<div class="container">
     <button class="btn btn-primary myButton" onclick="location.href='/productAdd'">Add new product</button>
 </div>
 </body>

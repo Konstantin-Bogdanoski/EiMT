@@ -7,19 +7,21 @@ package finki.ukim.mk.emt.konstantinb.lab01.web;
 
 import finki.ukim.mk.emt.konstantinb.lab01.exceptions.CategoryNotFoundException;
 import finki.ukim.mk.emt.konstantinb.lab01.exceptions.ManufacturerNotFoundException;
+import finki.ukim.mk.emt.konstantinb.lab01.exceptions.ProductNotFoundException;
 import finki.ukim.mk.emt.konstantinb.lab01.models.Category;
 import finki.ukim.mk.emt.konstantinb.lab01.models.Manufacturer;
 import finki.ukim.mk.emt.konstantinb.lab01.models.Product;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 import javax.sound.midi.Soundbank;
+import javax.swing.text.html.parser.Entity;
+import javax.xml.ws.Response;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -52,7 +54,7 @@ public class ProductController {
 
         Category c1 = new Category();
         c1.setID(getNextCatId());
-        c1.setName("Sport");
+        c1.setName("Shoes");
 
         Manufacturer m1 = new Manufacturer();
         m1.setID(getNextManId());
@@ -110,6 +112,25 @@ public class ProductController {
         p4.setLinkToImg("https://n1.sdlcdn.com/imgs/h/s/p/Adidas-D-ROSE-9-2018-SDL828381828-4-b6161.jpeg");
 
         productList.add(p4);
+
+        Category c2 = new Category();
+        c2.setID(getNextCatId());
+        c2.setName("Jackets");
+
+        Manufacturer m4 = new Manufacturer();
+        m4.setName("Salomon");
+        m4.setID(getNextManId());
+
+        Product p5 = new Product();
+        p5.setCategory(c2);
+        p5.setManufacturer(m4);
+        p5.setDescription("Salomon winter jacket");
+        p5.setName("BONATTI PRO WP JKT");
+        p5.setId(getNextId());
+        p5.setLinkToImg("https://www.salomon.com/sites/default/files/products-images/900x900/bonatti-pro-wp-jkt-m__LC1042900.jpg");
+
+        productList.add(p5);
+        categories.add(c2);
     }
 
     @GetMapping("productPage")
@@ -195,5 +216,18 @@ public class ProductController {
     private long getNextId() {return counter++;}
     private long getNextManId() {return counterMan++;}
     private long getNextCatId() {return counterCat++;}
+
+    @RequestMapping(value = "/productPage/{product_id}")
+    public String goToProduct(@PathVariable("product_id") String product_ID, String ID, Model model) throws IOException{
+        Long id = Long.parseLong(ID);
+        Optional<Product> product = productList.stream().filter(product1 -> {
+            return product1.getId()==id;
+        }).findAny();
+        if(!product.isPresent())
+            throw new ProductNotFoundException();
+        model.addAttribute("product",product.get());
+        return "product";
+    }
+
 }
 
