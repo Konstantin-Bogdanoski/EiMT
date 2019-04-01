@@ -1,3 +1,10 @@
+<!--
+/**
+  *
+  * @author Konstantin Bogdanoski (konstantin.b@live.com)
+  *
+  */
+-->
 <!DOCTYPE html>
 <html lang="en" xmlns:th="thymeleaf.org">
 <head>
@@ -31,7 +38,7 @@
             <option value="0">Choose manufacturer</option>
             <option th:each="m : ${manufacturerList}"
                     th:text="${m.name}"
-                    th:value="${m.ID}"/>
+                    th:value="${m.ID}">
         </select>
     </div>
     <div class="form-group">
@@ -40,11 +47,11 @@
             <option value="0">Choose category</option>
             <option th:each="c : ${categories}"
                     th:text="${c.name}"
-                    th:value="${c.ID}"/>
+                    th:value="${c.ID}">
         </select>
     </div>
     <div class="form-group">
-        <button class="btn btn-primary" type="submit" onclick="location.href='/productPage'">Confirm</button>
+        <button class="btn btn-primary" type="submit">Confirm</button>
     </div>
 </form>
 </body>

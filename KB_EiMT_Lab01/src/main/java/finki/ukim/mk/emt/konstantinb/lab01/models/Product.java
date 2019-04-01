@@ -1,4 +1,9 @@
 package finki.ukim.mk.emt.konstantinb.lab01.models;
+/**
+ *
+ * @author Konstantin Bogdanoski (konstantin.b@live.com)
+ *
+ */
 
 public class Product implements Comparable{
     long id;

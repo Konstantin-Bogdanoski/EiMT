@@ -1,4 +1,9 @@
 package finki.ukim.mk.emt.konstantinb.lab01.web;
+/**
+ *
+ * @author Konstantin Bogdanoski (konstantin.b@live.com)
+ *
+ */
 
 import finki.ukim.mk.emt.konstantinb.lab01.exceptions.CategoryNotFoundException;
 import finki.ukim.mk.emt.konstantinb.lab01.exceptions.ManufacturerNotFoundException;
@@ -19,9 +24,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-/*Why use RestController instead of Controller??
-While using Controller we get an error, the "server" thinks
-that there is an infinite loop while trying to connect to the page "/products"*/
 @Controller
 @RequestMapping("/")
 public class ProductController {
@@ -168,7 +170,7 @@ public class ProductController {
         }
 
         String description = request.getParameter("description");
-        String imgLink = request.getParameter("img-link");
+        String imgLink = request.getParameter("linkToImg");
         long pID = getNextId();
 
 
@@ -187,7 +189,7 @@ public class ProductController {
         model.addAttribute("manufacturerID", manufacturerID);
         model.addAttribute("categoryID", categoryID);
         model.addAttribute("product", product);
-        return "productAdd";
+        return "redirect:/productPage";
     }
 
     private long getNextId() {return counter++;}
