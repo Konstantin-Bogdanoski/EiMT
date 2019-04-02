@@ -28,4 +28,10 @@ public class Manufacturer implements Comparable {
             return 0;
         return -1;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        Manufacturer temp = (Manufacturer) obj;
+        return (this.getName().equals(temp.getName()));
+    }
 }

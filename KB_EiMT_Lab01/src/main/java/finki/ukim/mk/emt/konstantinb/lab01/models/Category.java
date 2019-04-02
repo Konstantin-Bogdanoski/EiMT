@@ -28,4 +28,10 @@ public class Category implements Comparable{
             return 0;
         return -1;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        Category temp = (Category) obj;
+        return (this.getName().equals(temp.getName()));
+    }
 }
