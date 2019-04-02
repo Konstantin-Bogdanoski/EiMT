@@ -48,20 +48,6 @@ public class ProductController {
         model.addAttribute("productList", productService.getAllProducts());
         model.addAttribute("manufacturerList", manufacturerService.getAllManufacturers());
         model.addAttribute("categories", categoryService.getCategories());
-        model.addAttribute("manufacturerID", manufacturerID);
-        model.addAttribute("categoryID", categoryID);
-        model.addAttribute("product", product);
-        return "productPage";
-    }
-
-    @PostMapping("productPage")
-    public String products(HttpServletRequest request, Model model){
-        model.addAttribute("productList", productService.getAllProducts());
-        model.addAttribute("manufacturerList", manufacturerService.getAllManufacturers());
-        model.addAttribute("categories", categoryService.getCategories());
-        model.addAttribute("manufacturerID", manufacturerID);
-        model.addAttribute("categoryID", categoryID);
-        model.addAttribute("product", product);
         return "productPage";
     }
 

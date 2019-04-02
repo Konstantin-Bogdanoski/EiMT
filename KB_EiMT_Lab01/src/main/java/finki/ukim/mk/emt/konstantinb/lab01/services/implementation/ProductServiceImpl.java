@@ -58,8 +58,9 @@ public class ProductServiceImpl implements ProductService {
 
         if(productRepository.getProductList().stream().anyMatch(v -> {
             return v.equals(newProduct);
-        }))
-            throw new ProductAlreadyExistsException();
+        })) {
+            return update(newProduct);
+        }
 
         productRepository.addProduct(newProduct);
         return newProduct;
@@ -74,6 +75,12 @@ public class ProductServiceImpl implements ProductService {
 
         product.setCategory(category.get());
         product.setManufacturer(manufacturer.get());
+
+        if(productRepository.getProductList().stream().anyMatch(v -> {
+            return v.equals(product);
+        })) {
+            return update(product);
+        }
         productRepository.addProduct(product);
         return product;
     }
@@ -83,7 +90,19 @@ public class ProductServiceImpl implements ProductService {
     }
 
     public Product update(Product product) throws ProductNotFoundException{
-        return null;
+        Optional<Product> productOptional = productRepository.getProductList().stream().filter(v -> {
+            return v.equals(product);
+        }).findAny();
+        if(!productOptional.isPresent()) throw new ProductNotFoundException();
+
+        Product temp = productOptional.get();
+        if(temp.getManufacturer() == null)
+            temp.setManufacturer(product.getManufacturer());
+
+        if(temp.getCategory() == null)
+            temp.setCategory(product.getCategory());
+
+        return temp;
     }
 
     public void delete(Product product) throws ProductNotFoundException{
