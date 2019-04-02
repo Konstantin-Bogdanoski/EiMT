@@ -1,4 +1,4 @@
-# EiMT
+# EiMT - correctSpringTemplate
 
 # READ THE WIKI
 
