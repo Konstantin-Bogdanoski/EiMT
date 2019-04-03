@@ -76,11 +76,6 @@ public class ProductServiceImpl implements ProductService {
         product.setCategory(category.get());
         product.setManufacturer(manufacturer.get());
 
-        if(productRepository.getProductList().stream().anyMatch(v -> {
-            return v.equals(product);
-        })) {
-            return update(product);
-        }
         productRepository.addProduct(product);
         return product;
     }
