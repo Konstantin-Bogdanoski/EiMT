@@ -4,6 +4,8 @@ import finki.ukim.mk.emt.konstantinb.lab01.exceptions.ProductAlreadyExistsExcept
 import finki.ukim.mk.emt.konstantinb.lab01.exceptions.ProductNotFoundException;
 import finki.ukim.mk.emt.konstantinb.lab01.models.Manufacturer;
 import finki.ukim.mk.emt.konstantinb.lab01.models.Product;
+import finki.ukim.mk.emt.konstantinb.lab01.services.ManufacturerService;
+import finki.ukim.mk.emt.konstantinb.lab01.services.implementation.ManufacturerServiceImpl;
 import finki.ukim.mk.emt.konstantinb.lab01.web.ProductController;
 import org.springframework.stereotype.Repository;
 
@@ -24,15 +26,6 @@ public class ProductRepository {
     public void init(){
         counterID = 1l;
         productList = new ArrayList<>();
-
-        Product p1 = new Product();
-        p1.setDescription("Nike Basketball shoes");
-        p1.setId(getNextId());
-        p1.setName("Hyperdunk X");
-        p1.setId(getNextId());
-        p1.setLinkToImg("https://c.static-nike.com/a/images/t_PDP_1280_v1/f_auto/bpuknsy73bmhmyj0agjj/hyperdunk-basketball-shoe-HlV5cq.jpg");
-
-        productList.add(p1);
     }
 
     public void addProduct(Product product){

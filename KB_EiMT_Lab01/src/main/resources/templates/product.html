@@ -14,6 +14,9 @@
 <div class="container">
     <div class="container">
         <button onclick="location.href='/productPage'" class="btn btn-primary myButton">Go back to products</button>
+        <a th:href="@{/productPage/productID/editProduct(ID=${product.id})}">
+            <button class="btn btn-danger myButton" id="edit">Edit product</button>
+        </a>
     </div>
     <div class="container">
         <h1 th:text="${product.name}" class="name"></h1>

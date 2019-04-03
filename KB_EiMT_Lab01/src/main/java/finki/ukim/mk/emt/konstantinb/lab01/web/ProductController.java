@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.List;
 import java.util.Optional;
 
@@ -38,9 +39,24 @@ public class ProductController {
         this.productService = productService;
         this.categoryService = categoryService;
         this.manufacturerService = manufacturerService;
+
+
+        //TEMPORARY PRODUCT, SO THE LIST ISN'T EMPTY
+        Product tempProduct = new Product();
+        tempProduct.setName("Hyperdunk X");
+        tempProduct.setDescription("Nike basketball shoe");
+        tempProduct.setLinkToImg("https://c.static-nike.com/a/images/t_PDP_1280_v1/f_auto/bpuknsy73bmhmyj0agjj/hyperdunk-basketball-shoe-HlV5cq.jpg");
+
+        Manufacturer tempManufacturer = manufacturerService.getByName("Nike");
+        Category tempCategory = categoryService.getByName("Shoes");
+        //END INPUT OF TEMPORARY PRODUCT
+
+
         product = new Product();
         manufacturerID = 1l;
         categoryID = 1l;
+
+        productService.addNewProduct(tempProduct, tempManufacturer.getID(), tempCategory.getID());
     }
 
     @GetMapping("productPage")
@@ -56,8 +72,6 @@ public class ProductController {
         model.addAttribute("productList", productService.getAllProducts());
         model.addAttribute("manufacturerList", manufacturerService.getAllManufacturers());
         model.addAttribute("categories", categoryService.getCategories());
-        model.addAttribute("manufacturerID", manufacturerID);
-        model.addAttribute("categoryID", categoryID);
         model.addAttribute("product", product);
         return "productAdd";
     }
@@ -101,6 +115,47 @@ public class ProductController {
             throw new ProductNotFoundException();
         model.addAttribute("product",product.get());
         return "product";
+    }
+
+    @RequestMapping(value = "/productPage/productID/{productEdit}")
+    public String editProduct(@PathVariable("productEdit") String productEdit, String ID, Model model) throws IOException{
+        Long id = Long.parseLong(ID);
+        Optional<Product> product = productService.getAllProducts().stream().filter(product1 -> {
+            return product1.getId()==id;
+        }).findAny();
+        if(!product.isPresent())
+            throw new ProductNotFoundException();
+        model.addAttribute("product",product.get());
+        return "productEdit";
+    }
+
+    @GetMapping("productEdit")
+    public String getProductEdit(Model model){
+        model.addAttribute("product", product);
+        return "productEdit";
+    }
+
+    @PostMapping("productEdit")
+    public String productEdit(HttpServletRequest request, Model model){
+        String newName = request.getParameter("name");
+        String newDescription = request.getParameter("description");
+        Long ID = Long.parseLong(request.getParameter("id"));
+
+        Optional<Product> product = productService.getAllProducts()
+                .stream()
+                .filter(v -> {
+                    return v.getId() == ID;
+                }).findAny();
+
+        if(!product.isPresent())
+            throw new ProductNotFoundException();
+
+        product.get().setName(newName);
+        product.get().setDescription(newDescription);
+        productService.update(product.get());
+
+        model.addAttribute("product", product);
+        return "redirect:/productPage";
     }
 }
 

@@ -64,7 +64,7 @@ public class Product implements Comparable{
     @Override
     public boolean equals(Object obj) {
         Product temp = (Product) obj;
-        return (this.getName().equals(temp.getName()));
+        return (this.getName().equals(temp.getName()) || this.getId()==temp.getId());
     }
 }
 

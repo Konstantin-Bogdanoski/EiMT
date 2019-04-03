@@ -102,6 +102,9 @@ public class ProductServiceImpl implements ProductService {
         if(temp.getCategory() == null)
             temp.setCategory(product.getCategory());
 
+        temp.setDescription(product.getDescription());
+        temp.setName(product.getName());
+
         return temp;
     }
 
