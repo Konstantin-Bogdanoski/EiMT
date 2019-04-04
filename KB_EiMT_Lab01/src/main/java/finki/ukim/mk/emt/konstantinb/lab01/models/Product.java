@@ -60,5 +60,11 @@ public class Product implements Comparable{
             return 0;
         return -1;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        Product temp = (Product) obj;
+        return (this.getName().equals(temp.getName()) || this.getId()==temp.getId());
+    }
 }
 

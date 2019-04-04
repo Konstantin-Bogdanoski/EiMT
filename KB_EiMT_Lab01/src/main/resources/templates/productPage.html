@@ -25,7 +25,7 @@
         <li class="list-group-item myList">
             <strong th:text="${product.name}"></strong>
             <br>
-            <span th:text="${product.manufacturer.name}"></span>
+            <span th:text="${product.manufacturer?.name}"></span>
             <img th:src="${product.linkToImg}" class="productImg">
         </li>
         </a>

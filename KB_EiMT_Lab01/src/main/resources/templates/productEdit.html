@@ -1,0 +1,65 @@
+<!--
+/**
+ *
+ * @author Konstantin Bogdanoski (konstantin.b@live.com)
+ *
+ */
+-->
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Products</title>
+    <link rel="stylesheet" href="/assets/vendor/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/css/productEdit.css">
+    <script src="/assets/vendor/jquery/jquery.min.js"></script>
+    <script src="/assets/vendor/jquery-migrate/jquery-migrate.min.js"></script>
+    <script src="/assets/vendor/popper.min.js"></script>
+    <script src="/assets/vendor/bootstrap/bootstrap.min.js"></script>
+    <title>Edit Product</title>
+</head>
+<body>
+<div class="container">
+<table class="table-active table-bordered" id="editTable">
+    <thead>
+    <th>OLD DATA</th>
+    <th>NEW DATA</th>
+    </thead>
+    <tr>
+        <td class="table-bordered">
+            <div class="form-group" hidden>
+                <strong>ID</strong><br>
+                <span th:text="${product.id}" id="pID"></span>
+            </div>
+            <div class="form-group">
+                <strong>Name</strong><br>
+                <span th:text="${product.name}" id="pName"></span>
+            </div>
+            <div class="form-group">
+                <strong>Description</strong><br>
+                <span th:text="${product.description}" id="pDesc"></span>
+            </div>
+        </td>
+        <td class="table-bordered">
+            <form id="inputForm" class="form" enctype="multipart/form-data" method="post" action="/productEdit">
+                <div class="form-group" hidden>
+                    <strong>ID</strong><br>
+                    <input th:field="*{product.id}" th:value="${product.id}" name="id" readonly/>
+                </div>
+                <div class="form-group">
+                    <strong>Name</strong>
+                    <input class="form-control" type="text" id="productName" name="name" th:field="*{product.name}" placeholder="Product Name" required/>
+                </div>
+                <div class="form-group">
+                    <strong>Description</strong>
+                    <input class="form-control" type="text" id="productDescription" name="description" th:field="*{product.description}" placeholder="Product Description" required/>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit changes</button>
+                <button type="reset" class="btn btn-danger" onclick="location.href='/productPage'">Discard changes</button>
+            </form>
+        </td>
+    </tr>
+</table>
+</div>
+</body>
+</html>

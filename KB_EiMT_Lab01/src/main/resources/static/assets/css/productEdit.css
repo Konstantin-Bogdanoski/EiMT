@@ -1,0 +1,19 @@
+<!--
+/**
+  *
+  * @author Konstantin Bogdanoski (konstantin.b@live.com)
+  *
+  */
+-->
+body{
+    background: darkgrey;
+    text-align: center;
+}
+#editTable{
+    background: white;
+    display: inline-block;
+    width: 500px;
+    border: dashed 2px black;
+    padding: 20px;
+    margin: 20px;
+}
