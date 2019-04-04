@@ -1,10 +1,6 @@
-# EiMT - correctSpringTemplate
+# EiMT 
 
 # READ THE WIKI
-
-This branch is made to fully integrate the correct Spring Template in our code. On this branch we will _Reformat and Update_ the code, while also implementing the _Domain-Repository-Service-Controller_ pattern
-
-# No further updates will be made on Lab01, unless specified otherwise
 
 Each Laboratory Exercise will be wrapped in a module (ex. Laboratory 1 is saved in KB_EiMT_Lab01)
 
