@@ -46,9 +46,19 @@ public class ProductController {
         tempProduct.setName("Hyperdunk X");
         tempProduct.setDescription("Nike basketball shoe");
         tempProduct.setLinkToImg("https://c.static-nike.com/a/images/t_PDP_1280_v1/f_auto/bpuknsy73bmhmyj0agjj/hyperdunk-basketball-shoe-HlV5cq.jpg");
+        tempProduct.setPrice(180);
 
         Manufacturer tempManufacturer = manufacturerService.getByName("Nike");
         Category tempCategory = categoryService.getByName("Shoes");
+
+        Product tempProduct2 = new Product();
+        tempProduct2.setName("AdiRose 9");
+        tempProduct2.setDescription("Adidas basketball shoe");
+        tempProduct2.setLinkToImg("https://images.nikedropshipping.com/images/201807/uploaded/8a82be0e5af733fab281857470d58014.jpg");
+        tempProduct2.setPrice(135);
+
+        Manufacturer tempManufacturer2 = manufacturerService.getByName("Adidas");
+        Category tempCategory2 = categoryService.getByName("Shoes");
         //END INPUT OF TEMPORARY PRODUCT
 
 
@@ -57,6 +67,7 @@ public class ProductController {
         categoryID = 1l;
 
         productService.addNewProduct(tempProduct, tempManufacturer.getID(), tempCategory.getID());
+        productService.addNewProduct(tempProduct2, tempManufacturer2.getID(), tempCategory2.getID());
     }
 
     @GetMapping("productPage")
@@ -86,12 +97,15 @@ public class ProductController {
 
         String description = request.getParameter("description");
         String imgLink = request.getParameter("linkToImg");
-
+        Double price = Double.parseDouble(request.getParameter("price"));
 
         Product newProduct = new Product();
         newProduct.setName(name);
         newProduct.setLinkToImg(imgLink);
         newProduct.setDescription(description);
+        if(price <= 0)
+            throw new IllegalArgumentException("Illegal price value: price = " + price.toString());
+        newProduct.setPrice(price);
 
         productService.addNewProduct(newProduct, manufacturerID, categoryID);
 

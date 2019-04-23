@@ -1,4 +1,7 @@
 package finki.ukim.mk.emt.konstantinb.lab01.models;
+
+import java.util.List;
+
 /**
  *
  * @author Konstantin Bogdanoski (konstantin.b@live.com)
@@ -12,6 +15,8 @@ public class Product implements Comparable{
     String linkToImg;
     Category category;
     Manufacturer manufacturer;
+    double price;
+    List<Accessory> accessoryList;
 
     public long getId() {
         return id;
@@ -48,6 +53,20 @@ public class Product implements Comparable{
     }
     public void setManufacturer(Manufacturer manufacturer) {
         this.manufacturer = manufacturer;
+    }
+    public List<Accessory> getAccessoryList() {
+        return accessoryList;
+    }
+    public void setAccessoryList(List<Accessory> accessoryList) {
+        this.accessoryList = accessoryList;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
     }
 
     public int compareTo(Object o) {

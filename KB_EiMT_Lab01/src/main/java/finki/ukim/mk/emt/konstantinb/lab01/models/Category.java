@@ -1,9 +1,11 @@
 package finki.ukim.mk.emt.konstantinb.lab01.models;
+
 /**
  *
  * @author Konstantin Bogdanoski (konstantin.b@live.com)
  *
  */
+
 public class Category implements Comparable{
     long ID;
     String name;
