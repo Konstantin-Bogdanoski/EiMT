@@ -48,6 +48,11 @@ public class ProductController {
         Manufacturer tempManufacturer = manufacturerService.getByName("Nike");
         Category tempCategory = categoryService.getByName("Shoes");
 
+        if(!productService.getAllProducts().stream().anyMatch(product1 -> {
+            return product1.equals(tempProduct);
+        }))
+            productService.addNewProduct(tempProduct, tempManufacturer.getID(), tempCategory.getID());
+
         Product tempProduct2 = new Product();
         tempProduct2.setName("AdiRose 9");
         tempProduct2.setDescription("Adidas basketball shoe");
@@ -56,15 +61,16 @@ public class ProductController {
 
         Manufacturer tempManufacturer2 = manufacturerService.getByName("Adidas");
         Category tempCategory2 = categoryService.getByName("Shoes");
-        //END INPUT OF TEMPORARY PRODUCT
+        if(!productService.getAllProducts().stream().anyMatch(product1 -> {
+            return product1.equals(tempProduct2);
+        }))
+            productService.addNewProduct(tempProduct2, tempManufacturer2.getID(), tempCategory2.getID());
 
+        //END INPUT OF TEMPORARY PRODUCT
 
         product = new Product();
         manufacturerID = 1l;
         categoryID = 1l;
-
-        productService.addNewProduct(tempProduct, tempManufacturer.getID(), tempCategory.getID());
-        productService.addNewProduct(tempProduct2, tempManufacturer2.getID(), tempCategory2.getID());
     }
 
     @GetMapping("productPage")

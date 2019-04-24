@@ -1,5 +1,7 @@
 package finki.ukim.mk.emt.konstantinb.lab01.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -25,16 +27,21 @@ public class Product implements Comparable{
 
     String linkToImg;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "categoryID")
     Category category;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "manufacturerID")
     Manufacturer manufacturer;
 
+    @JsonIgnore
     double price;
 
+
+    @JsonIgnore
     @ManyToMany
     @JoinTable(name = "Product_Accessory",
     joinColumns = @JoinColumn(name = "productID"),

@@ -4,6 +4,7 @@ import finki.ukim.mk.emt.konstantinb.lab01.exceptions.CategoryAlreadyExistsExcep
 import finki.ukim.mk.emt.konstantinb.lab01.exceptions.CategoryNotFoundException;
 import finki.ukim.mk.emt.konstantinb.lab01.models.Category;
 import finki.ukim.mk.emt.konstantinb.lab01.repositories.CategoryRepository;
+import finki.ukim.mk.emt.konstantinb.lab01.repositories.persistence.PersistentCategoryRepository;
 import finki.ukim.mk.emt.konstantinb.lab01.services.CategoryService;
 import org.springframework.stereotype.Service;
 
@@ -15,9 +16,10 @@ import java.util.Optional;
  */
 @Service
 public class CategoryServiceImpl implements CategoryService {
-    private CategoryRepository categoryRepository;
+    private PersistentCategoryRepository categoryRepository;
+    //private CategoryRepository categoryRepository;
 
-    public CategoryServiceImpl(CategoryRepository categoryRepository){
+    public CategoryServiceImpl(PersistentCategoryRepository categoryRepository){
         this.categoryRepository = categoryRepository;
     }
 
@@ -27,7 +29,7 @@ public class CategoryServiceImpl implements CategoryService {
         }))
             throw new CategoryAlreadyExistsException();
 
-        categoryRepository.addCategory(category);
+        categoryRepository.addCategory(category.getName());
         return category;
     }
 
@@ -40,7 +42,7 @@ public class CategoryServiceImpl implements CategoryService {
         }))
             throw new CategoryAlreadyExistsException();
 
-        categoryRepository.addCategory(category);
+        categoryRepository.addCategory(categoryName);
         return category;
     }
 
@@ -57,17 +59,17 @@ public class CategoryServiceImpl implements CategoryService {
             return v.equals(category);
         })) throw new CategoryNotFoundException();
         
-        categoryRepository.deleteCategory(category);
+        categoryRepository.deleteCategory(category.getID());
     }
 
     public Category getById(Long categoryID) throws CategoryNotFoundException{
-        Optional<Category> category = categoryRepository.findById(categoryID);
+        Optional<Category> category = categoryRepository.getByID(categoryID);
         if(!category.isPresent()) throw new CategoryNotFoundException();
         return category.get();
     }
 
     public Category getByName(String name) throws CategoryNotFoundException{
-        Optional<Category> category = categoryRepository.findByName(name);
+        Optional<Category> category = categoryRepository.getByName(name);
         if(!category.isPresent()) throw new CategoryNotFoundException();
         return category.get();
     }

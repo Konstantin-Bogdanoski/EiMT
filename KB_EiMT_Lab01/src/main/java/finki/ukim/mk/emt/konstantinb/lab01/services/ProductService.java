@@ -13,7 +13,7 @@ import java.util.List;
  * @author Konstantin Bogdanoski (konstantin.b@live.com)
  */
 public interface ProductService {
-    Product addNewProduct(String name, long manufacturerID, long categoryID, String description, String linkToImg) throws ProductAlreadyExistsException, ManufacturerNotFoundException, CategoryNotFoundException;
+    Product addNewProduct(String name, long manufacturerID, long categoryID, String description,Double price, String linkToImg) throws ProductAlreadyExistsException, ManufacturerNotFoundException, CategoryNotFoundException;
     Product addNewProduct(Product product, long manufacturerID, long categoryID) throws ProductAlreadyExistsException;
     List<Product> getAllProducts();
     Product update(Product product) throws ProductNotFoundException;

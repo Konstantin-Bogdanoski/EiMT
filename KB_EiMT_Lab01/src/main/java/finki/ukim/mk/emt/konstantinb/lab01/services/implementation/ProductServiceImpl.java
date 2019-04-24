@@ -8,6 +8,7 @@ import finki.ukim.mk.emt.konstantinb.lab01.models.Category;
 import finki.ukim.mk.emt.konstantinb.lab01.models.Manufacturer;
 import finki.ukim.mk.emt.konstantinb.lab01.models.Product;
 import finki.ukim.mk.emt.konstantinb.lab01.repositories.ProductRepository;
+import finki.ukim.mk.emt.konstantinb.lab01.repositories.persistence.PersistentProductRepository;
 import finki.ukim.mk.emt.konstantinb.lab01.services.CategoryService;
 import finki.ukim.mk.emt.konstantinb.lab01.services.ManufacturerService;
 import finki.ukim.mk.emt.konstantinb.lab01.services.ProductService;
@@ -21,17 +22,26 @@ import java.util.Optional;
  */
 @Service
 public class ProductServiceImpl implements ProductService {
-    private ProductRepository productRepository;
+    private PersistentProductRepository productRepository;
     private ManufacturerService manufacturerService;
     private CategoryService categoryService;
 
-    public ProductServiceImpl(ProductRepository productRepository, ManufacturerService manufacturerService, CategoryService categoryService){
+    public ProductServiceImpl(PersistentProductRepository productRepository, ManufacturerService manufacturerService, CategoryService categoryService) {
         this.productRepository = productRepository;
         this.manufacturerService = manufacturerService;
         this.categoryService = categoryService;
+
+        if (this.categoryService.getCategories().size() == 0) {
+            this.categoryService.addNewCategory("Shoes");
+            this.categoryService.addNewCategory("Jackets");
+        }
+        if (this.manufacturerService.getAllManufacturers().size() == 0) {
+            this.manufacturerService.addNewManufacturer("Nike");
+            this.manufacturerService.addNewManufacturer("Adidas");
+        }
     }
 
-    public Product addNewProduct(String name, long manufacturerID, long categoryID, String description, String linkToImg) throws ProductAlreadyExistsException, ManufacturerNotFoundException, CategoryNotFoundException{
+    public Product addNewProduct(String name, long manufacturerID, long categoryID, String description, Double price, String linkToImg) throws ProductAlreadyExistsException, ManufacturerNotFoundException, CategoryNotFoundException{
         Optional<Manufacturer> manufacturer = manufacturerService
                 .getAllManufacturers()
                 .stream()
@@ -62,7 +72,7 @@ public class ProductServiceImpl implements ProductService {
             return update(newProduct);
         }
 
-        productRepository.addProduct(newProduct);
+        productRepository.addProduct(name, description, linkToImg, price, manufacturerID, categoryID);
         return newProduct;
     }
 
@@ -76,7 +86,7 @@ public class ProductServiceImpl implements ProductService {
         product.setCategory(category.get());
         product.setManufacturer(manufacturer.get());
 
-        productRepository.addProduct(product);
+        productRepository.addProduct(product.getName(), product.getDescription(), product.getLinkToImg(), product.getPrice(), manufacturerID, categoryID);
         return product;
     }
 
@@ -99,12 +109,14 @@ public class ProductServiceImpl implements ProductService {
 
         temp.setDescription(product.getDescription());
         temp.setName(product.getName());
+        productRepository.updateProductDescription(temp.getId(), temp.getDescription());
+        productRepository.updateProductName(temp.getId(), temp.getName());
 
         return temp;
     }
 
     public void delete(Product product) throws ProductNotFoundException{
-        productRepository.removeProduct(product);
+        productRepository.deleteById(product.getId());
     }
 
     public Product getById(Long productID) throws ProductNotFoundException{
@@ -115,7 +127,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     public Product getByName(String name) throws ProductNotFoundException{
-        Optional<Product> product = productRepository.findByName(name);
+        Optional<Product> product = productRepository.getByName(name);
         if(!product.isPresent())
             throw new ProductNotFoundException();
         return product.get();

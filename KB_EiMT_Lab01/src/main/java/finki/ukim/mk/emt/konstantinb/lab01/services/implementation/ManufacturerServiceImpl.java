@@ -4,6 +4,7 @@ import finki.ukim.mk.emt.konstantinb.lab01.exceptions.ManufacturerAlreadyExistsE
 import finki.ukim.mk.emt.konstantinb.lab01.exceptions.ManufacturerNotFoundException;
 import finki.ukim.mk.emt.konstantinb.lab01.models.Manufacturer;
 import finki.ukim.mk.emt.konstantinb.lab01.repositories.ManufacturerRepository;
+import finki.ukim.mk.emt.konstantinb.lab01.repositories.persistence.PersistentManufacturerRepository;
 import finki.ukim.mk.emt.konstantinb.lab01.services.ManufacturerService;
 import org.springframework.stereotype.Service;
 
@@ -15,9 +16,9 @@ import java.util.Optional;
  */
 @Service
 public class ManufacturerServiceImpl implements ManufacturerService {
-    private ManufacturerRepository manufacturerRepository;
+    private PersistentManufacturerRepository manufacturerRepository;
 
-    public ManufacturerServiceImpl(ManufacturerRepository manufacturerRepository){
+    public ManufacturerServiceImpl(PersistentManufacturerRepository manufacturerRepository){
         this.manufacturerRepository = manufacturerRepository;
     }
 
@@ -27,7 +28,7 @@ public class ManufacturerServiceImpl implements ManufacturerService {
         }))
             throw new ManufacturerAlreadyExistsException();
 
-        manufacturerRepository.addManufacturer(manufacturer);
+        manufacturerRepository.addManufacturer(manufacturer.getName());
         return manufacturer;
     }
 
@@ -40,7 +41,7 @@ public class ManufacturerServiceImpl implements ManufacturerService {
         }))
             throw new ManufacturerAlreadyExistsException();
 
-        manufacturerRepository.addManufacturer(manufacturer);
+        manufacturerRepository.addManufacturer(manufacturer.getName());
         return manufacturer;
     }
 
@@ -58,7 +59,7 @@ public class ManufacturerServiceImpl implements ManufacturerService {
         }))
             throw new ManufacturerNotFoundException();
 
-        manufacturerRepository.removeManufacturer(manufacturer);
+        manufacturerRepository.removeManufacturer(manufacturer.getID());
     }
 
     public Manufacturer getById(Long manufacturerID) throws ManufacturerNotFoundException{
@@ -69,7 +70,7 @@ public class ManufacturerServiceImpl implements ManufacturerService {
     }
 
     public Manufacturer getByName(String name) throws ManufacturerNotFoundException{
-        Optional<Manufacturer> manufacturer = manufacturerRepository.findByName(name);
+        Optional<Manufacturer> manufacturer = manufacturerRepository.getByName(name);
         if(!manufacturer.isPresent())
             throw new ManufacturerNotFoundException();
         return manufacturer.get();
