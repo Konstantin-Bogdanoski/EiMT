@@ -1,13 +1,21 @@
 package finki.ukim.mk.emt.konstantinb.lab01.models;
 
+import javax.persistence.*;
+
 /**
  *
  * @author Konstantin Bogdanoski (konstantin.b@live.com)
  *
  */
-
+@Entity
+@Table(name = "Manufacturer")
 public class Manufacturer implements Comparable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "manufacturerID")
     long ID;
+
+    @Column(name = "manufacturerName")
     String name;
 
     public long getID() {

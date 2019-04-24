@@ -1,5 +1,6 @@
 package finki.ukim.mk.emt.konstantinb.lab01.models;
 
+import javax.persistence.*;
 import java.util.List;
 
 /**
@@ -7,16 +8,39 @@ import java.util.List;
  * @author Konstantin Bogdanoski (konstantin.b@live.com)
  *
  */
-
+@Entity
+@Table(name = "Product")
 public class Product implements Comparable{
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "productID")
     long id;
+
+    @Column(name = "productName")
     String name;
+
+    @Column(name = "productDescription", length = 1000)
     String description;
+
     String linkToImg;
+
+    @ManyToOne
+    @JoinColumn(name = "categoryID")
     Category category;
+
+    @ManyToOne
+    @JoinColumn(name = "manufacturerID")
     Manufacturer manufacturer;
+
     double price;
+
+    @ManyToMany
+    @JoinTable(name = "Product_Accessory",
+    joinColumns = @JoinColumn(name = "productID"),
+    inverseJoinColumns = @JoinColumn(name = "accessoryID"))
     List<Accessory> accessoryList;
+
 
     public long getId() {
         return id;

@@ -1,12 +1,20 @@
 package finki.ukim.mk.emt.konstantinb.lab01.models;
 
+import javax.persistence.*;
 import java.util.Objects;
 
 /**
  * @author Konstantin Bogdanoski (konstantin.b@live.com)
  */
+@Entity
+@Table(name = "Accessory")
 public class Accessory {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "accessoryID")
     Long ID;
+
+    @Column(name = "accessoryName")
     String name;
 
     public Accessory(Long ID, String name) {
