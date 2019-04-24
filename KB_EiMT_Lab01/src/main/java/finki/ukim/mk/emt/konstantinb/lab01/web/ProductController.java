@@ -20,10 +20,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Controller
 @RequestMapping("/")
@@ -170,6 +167,20 @@ public class ProductController {
 
         model.addAttribute("product", product);
         return "redirect:/productPage";
+    }
+
+    @DeleteMapping("/")
+    public String productDelete(HttpServletRequest request) {
+        Long productID = Long.parseLong(request.getParameter("productID"));
+        productService.delete(productService.getById(productID));
+        return "redirect:/productPage/";
+    }
+
+    @RequestMapping(value = "/productPage/{product_id}", method = RequestMethod.DELETE)
+    public String productDelete(@PathVariable("product_id") String product_id){
+        Long productID =  Long.parseLong(product_id);
+        productService.delete(productService.getById(productID));
+        return "redirect:/productPage/";
     }
 }
 
