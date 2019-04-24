@@ -31,8 +31,8 @@ public interface PersistentCategoryRepository extends Repository<Category,Long> 
     void updateCategoryName(@Param("name") String name, @Param("ID") Long ID);
 
     /**Update categoryProductList */
-    @Query("update Category category set category.products=:products where category.ID=:ID")
-    void updateCategoryProducts(@Param("productList") List<Product> products, @Param("ID") Long ID);
+    /*@Query("update Category category set category.products=:products where category.ID=:ID")
+    void updateCategoryProducts(@Param("products") List<Product> products, @Param("ID") Long ID);*/
 
 
 }

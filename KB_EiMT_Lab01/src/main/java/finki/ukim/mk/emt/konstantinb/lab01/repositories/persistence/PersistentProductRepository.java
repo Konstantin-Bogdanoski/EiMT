@@ -27,7 +27,7 @@ public interface PersistentProductRepository extends Repository<Product, Long> {
 
     /**Get product by ID */
     @Query("select product from Product product where product.id=:id")
-    Optional<Product> getById(@Param("product") Product product);
+    Optional<Product> getById(@Param("id") Long id);
 
     /**Get list of products by CATEGORY */
     @Query("select product from Product product where product.category=:category")
@@ -58,7 +58,7 @@ public interface PersistentProductRepository extends Repository<Product, Long> {
     @Modifying(clearAutomatically = true)
     @Transactional
     @Query("update Product product set product.name=:name where product.id=:id")
-    void updateProductName(@Param("productID") Long id, @Param("productName") String name);
+    void updateProductName(@Param("id") Long id, @Param("name") String name);
 
     /**Update productDescription */
     @Modifying(clearAutomatically = true)
