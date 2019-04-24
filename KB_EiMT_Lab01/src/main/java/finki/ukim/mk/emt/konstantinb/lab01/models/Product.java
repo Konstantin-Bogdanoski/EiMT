@@ -37,7 +37,6 @@ public class Product implements Comparable{
     @JoinColumn(name = "manufacturerID")
     Manufacturer manufacturer;
 
-    @JsonIgnore
     double price;
 
 
