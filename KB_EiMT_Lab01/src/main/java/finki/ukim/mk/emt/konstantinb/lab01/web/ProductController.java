@@ -181,12 +181,5 @@ public class ProductController {
         productService.deleteProduct(productService.getById(productID));
         return "redirect:/productPage/";
     }
-
-    /*@RequestMapping(value = "/productPage/{product_id}", method = RequestMethod.DELETE)
-    public String productDelete(@PathVariable("product_id") String product_id){
-        Long productID =  Long.parseLong(product_id);
-        productService.delete(productService.getById(productID));
-        return "redirect:/productPage/";
-    }*/
 }
 
