@@ -23,9 +23,17 @@ public interface PersistentProductRepository extends JpaRepository<Product, Long
     @Query("select product from Product product")
     List<Product> getProductList();
 
+    @Transactional
+    @Modifying
     /**Delete product from productList */
-    @Query("delete from Product product where product=:product")
-    void deleteById(@Param("product") Product product);
+    @Query("delete from Product product where product.id=:id")
+    void deleteById(@Param("id") Long id);
+
+    @Transactional
+    @Modifying
+    /**Delete product from productList */
+    @Query("delete from Product product where product=:product2")
+    void deleteProduct(@Param("product2") Product product2);
 
     /**Get product by ID */
     @Query("select product from Product product where product.id=:id")
@@ -38,6 +46,10 @@ public interface PersistentProductRepository extends JpaRepository<Product, Long
     /**Get list of products by CATEGORY */
     @Query("select product from Product product where product.category=:category")
     List<Product> getByCategory(@Param("category") Category category);
+
+    /**Get SUM of products by CATEGORY*/
+    @Query("select sum(product.price) from Product product where product.category=:category")
+    Double getPrice(@Param("category") Category category);
 
     /**Get list of products by MANUFACTURER */
     @Query("select product from Product product where product.manufacturer=:manufacturer")

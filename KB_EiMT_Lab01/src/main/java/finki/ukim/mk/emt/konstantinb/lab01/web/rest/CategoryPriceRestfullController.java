@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -34,8 +35,8 @@ public class CategoryPriceRestfullController {
 
     @GetMapping
     public Map<String, Double> getPrice(@PathVariable ("categoryId") String categoryId) throws IOException {
-        Map<String, Double> price = new HashMap<>();
-        double totalPrice = 0;
+        /*Map<String, Double> price = new HashMap<>();
+        double totalPrice = 0;*/
 
         Optional<Category> category = categoryService.getCategories()
                 .stream()
@@ -46,13 +47,12 @@ public class CategoryPriceRestfullController {
         if(!category.isPresent())
             throw new CategoryNotFoundException();
 
-        for (Product product: productService.getAllProducts()) {
+        /*for (Product product: productService.getAllProducts()) {
             if(product.getCategory().equals(category.get()))
                 totalPrice+=product.getPrice();
         }
 
-        price.put("Total price", totalPrice);
-
-        return price;
+        price.put("Total price", totalPrice);*/
+        return Collections.singletonMap("Total price", productService.getPrice(category.get()));
     }
 }

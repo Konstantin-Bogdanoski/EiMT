@@ -41,6 +41,10 @@ public class ProductServiceImpl implements ProductService {
         }
     }
 
+    public Double getPrice(Category category){
+        return productRepository.getPrice(category);
+    }
+
     public Product addNewProduct(String name, long manufacturerID, long categoryID, String description, Double price, String linkToImg) throws ProductAlreadyExistsException, ManufacturerNotFoundException, CategoryNotFoundException{
         Optional<Manufacturer> manufacturer = manufacturerService
                 .getAllManufacturers()
@@ -115,8 +119,12 @@ public class ProductServiceImpl implements ProductService {
         return temp;
     }
 
-    public void delete(Product product) throws ProductNotFoundException{
-        productRepository.deleteById(product.getId());
+    public void deleteProduct(Product product) throws ProductNotFoundException{
+        productRepository.deleteProduct(product);
+    }
+
+    public void deleteById(Long id) throws ProductNotFoundException{
+        productRepository.deleteById(id);
     }
 
     public Product getById(Long productID) throws ProductNotFoundException{
