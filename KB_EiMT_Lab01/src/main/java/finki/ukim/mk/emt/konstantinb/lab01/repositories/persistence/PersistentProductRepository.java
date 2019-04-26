@@ -92,13 +92,4 @@ public interface PersistentProductRepository extends JpaRepository<Product, Long
     void addProduct(@Param("name") String name, @Param("description") String description,
                        @Param("linkToImg") String linkToImg, @Param("price") Double price,
                        @Param("manufacturerID") Long manufacturerID, @Param("categoryID") Long categoryID);
-
-    /**
-    @Transactional
-    @Modifying
-    @Query(value = "insert into Products (name, description, img_url, price, man_id, cat_id) values (:name, :description, :imgUrl, :price, :man_id, :cat_id)",
-            nativeQuery = true)
-    void insertProduct(@Param("name") String name, @Param("description") String description,
-                       @Param("imgUrl") String imgUrl, @Param("price") double price, @Param("man_id") Long man_id, @Param("cat_id") Long cat_id);
-*/
 }

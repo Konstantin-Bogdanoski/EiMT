@@ -125,24 +125,16 @@ public class ProductController {
     @RequestMapping(value = "/productPage/{product_id}")
     public String goToProduct(@PathVariable("product_id") String product_ID, String ID, Model model) throws IOException{
         Long id = Long.parseLong(ID);
-        Optional<Product> product = productService.getAllProducts().stream().filter(product1 -> {
-            return product1.getId()==id;
-        }).findAny();
-        if(!product.isPresent())
-            throw new ProductNotFoundException();
-        model.addAttribute("product",product.get());
+        Product product = productService.getById(id);
+        model.addAttribute("product", product);
         return "product";
     }
 
     @RequestMapping(value = "/productPage/productID/{productEdit}")
     public String editProduct(@PathVariable("productEdit") String productEdit, String ID, Model model) throws IOException{
         Long id = Long.parseLong(ID);
-        Optional<Product> product = productService.getAllProducts().stream().filter(product1 -> {
-            return product1.getId()==id;
-        }).findAny();
-        if(!product.isPresent())
-            throw new ProductNotFoundException();
-        model.addAttribute("product",product.get());
+        Product product = productService.getById(id);
+        model.addAttribute("product", product);
         return "productEdit";
     }
 
@@ -158,18 +150,10 @@ public class ProductController {
         String newDescription = request.getParameter("description");
         Long ID = Long.parseLong(request.getParameter("id"));
 
-        Optional<Product> product = productService.getAllProducts()
-                .stream()
-                .filter(v -> {
-                    return v.getId() == ID;
-                }).findAny();
-
-        if(!product.isPresent())
-            throw new ProductNotFoundException();
-
-        product.get().setName(newName);
-        product.get().setDescription(newDescription);
-        productService.update(product.get());
+        Product product = productService.getById(ID);
+        product.setName(newName);
+        product.setDescription(newDescription);
+        productService.update(product);
 
         model.addAttribute("product", product);
         return "redirect:/productPage";
