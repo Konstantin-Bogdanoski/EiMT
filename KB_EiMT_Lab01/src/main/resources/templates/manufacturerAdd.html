@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Manufacturer</title>
+    <meta charset="UTF-8">
+    <title>Products</title>
+    <link rel="stylesheet" href="/assets/vendor/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/css/productAdd.css">
+    <script src="/assets/vendor/jquery/jquery.min.js"></script>
+    <script src="/assets/vendor/jquery-migrate/jquery-migrate.min.js"></script>
+    <script src="/assets/vendor/popper.min.js"></script>
+    <script src="/assets/vendor/bootstrap/bootstrap.min.js"></script>
+</head>
+<body>
+<form id="inputForm" class="form" enctype="multipart/form-data" method="post" action="/manufacturerAdd">
+    <strong>ADD NEW MANUFACTURER</strong>
+    <div class="form-group">
+        <label for="manufacturerName">Name</label>
+        <input class="form-control" type="text" id="manufacturerName" name="name" th:field="*{manufacturer.name}"
+               placeholder="Manufacturer Name" required/>
+    </div>
+    <div class="form-group">
+        <button class="btn btn-primary" type="submit">Confirm</button>
+        <button class="btn btn-primary btn-danger" type="reset" onclick="location.href='/productPage'">Cancel</button>
+    </div>
+</form>
+</body>
+</html>

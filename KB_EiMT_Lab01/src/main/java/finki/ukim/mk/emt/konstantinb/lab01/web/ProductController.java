@@ -5,9 +5,7 @@ package finki.ukim.mk.emt.konstantinb.lab01.web;
  *
  */
 
-import finki.ukim.mk.emt.konstantinb.lab01.exceptions.CategoryNotFoundException;
-import finki.ukim.mk.emt.konstantinb.lab01.exceptions.ManufacturerNotFoundException;
-import finki.ukim.mk.emt.konstantinb.lab01.exceptions.ProductNotFoundException;
+import finki.ukim.mk.emt.konstantinb.lab01.exceptions.*;
 import finki.ukim.mk.emt.konstantinb.lab01.models.Category;
 import finki.ukim.mk.emt.konstantinb.lab01.models.Manufacturer;
 import finki.ukim.mk.emt.konstantinb.lab01.models.Product;
@@ -119,6 +117,42 @@ public class ProductController {
         model.addAttribute("categoryID", categoryID);
         model.addAttribute("product", product);
 
+        return "redirect:/productPage";
+    }
+
+    @GetMapping("categoryAdd")
+    public String addCategory(Model model) {
+        model.addAttribute("categories", categoryService.getCategories());
+        model.addAttribute("category", new Category());
+        return "categoryAdd";
+    }
+
+    @PostMapping("categoryAdd")
+    public String addCategory(HttpServletRequest request, Model model) {
+        String categoryName = request.getParameter("name");
+        if (categoryService.getCategories().stream().anyMatch(cat -> {
+            return cat.getName().equals(categoryName);
+        }))
+            throw new CategoryAlreadyExistsException();
+        categoryService.addNewCategory(categoryName);
+        return "redirect:/productPage";
+    }
+
+    @GetMapping("manufacturerAdd")
+    public String addManufacturer(Model model) {
+        model.addAttribute("manufacturers", manufacturerService.getAllManufacturers());
+        model.addAttribute("manufacturer", new Manufacturer());
+        return "manufacturerAdd";
+    }
+
+    @PostMapping("manufacturerAdd")
+    public String addManufacturer(HttpServletRequest request, Model model) {
+        String manufacturerName = request.getParameter("name");
+        if (manufacturerService.getAllManufacturers().stream().anyMatch(man -> {
+            return man.getName().equals(manufacturerName);
+        }))
+            throw new ManufacturerAlreadyExistsException();
+        manufacturerService.addNewManufacturer(manufacturerName);
         return "redirect:/productPage";
     }
 

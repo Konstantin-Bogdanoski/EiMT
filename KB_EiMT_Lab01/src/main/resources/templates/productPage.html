@@ -19,8 +19,12 @@
     <script src="/assets/vendor/bootstrap/bootstrap.min.js"></script>
 </head>
 <body>
+<div class="header-panel">
+    <div class="header">
+        <p>THERE WILL BE A MENU HERE</p>
+    </div>
+</div>
 <div class="container">
-    <h1>LIST OF ALL PRODUCTS</h1>
     <ul class="list-group list myList" th:each="product : ${productList}">
         <a th:href="@{/productPage/productID(ID=${product.id})}">
         <li class="list-group-item myList">
@@ -37,8 +41,18 @@
 
     </ul>
 </div>
-<div class="container">
-    <button class="btn btn-primary myButton" onclick="location.href='/productAdd'">Add new product</button>
+<br>
+<div class="addButtons">
+    <div class="container">
+        <button class="btn btn-primary myButton" onclick="location.href='/productAdd'">Add new product</button>
+    </div>
+    <div class="container">
+        <button class="btn btn-primary myButton" onclick="location.href='/categoryAdd'">Add new category</button>
+    </div>
+    <div class="container">
+        <button class="btn btn-primary myButton" onclick="location.href='/manufacturerAdd'">Add new manufacturer
+        </button>
+    </div>
 </div>
 </body>
 </html>

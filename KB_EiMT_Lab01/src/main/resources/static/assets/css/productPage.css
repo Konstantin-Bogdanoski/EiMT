@@ -10,7 +10,21 @@ body{
 }
 
 .myButton{
-    position: absolute;
+    width: inherit;
+    padding: 5px;
+    margin: 5px;
+}
+
+.addButtons {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background: #0b93d5;
+}
+
+.header {
+    width: 100%;
+    background: #0b93d5;
 }
 
 .productImg{
@@ -25,7 +39,7 @@ body{
 .myList{
     display: inline-block;
     float: left;
-    width: 250px;
+    width: 277px;
 }
 
 a{
