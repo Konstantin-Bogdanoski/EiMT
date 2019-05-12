@@ -70,13 +70,13 @@ public class ProductServiceImpl implements ProductService {
         newProduct.setDescription(description);
         newProduct.setLinkToImg(linkToImg);
 
-        if(productRepository.getProductList().stream().anyMatch(v -> {
+        if (productRepository.findAll().stream().anyMatch(v -> {
             return v.equals(newProduct);
         })) {
             return update(newProduct);
         }
 
-        productRepository.addProduct(name, description, linkToImg, price, manufacturerID, categoryID);
+        productRepository.save(newProduct);
         return newProduct;
     }
 
@@ -89,17 +89,19 @@ public class ProductServiceImpl implements ProductService {
 
         product.setCategory(category.get());
         product.setManufacturer(manufacturer.get());
+        product.setCategory(category.get());
+        product.setManufacturer(manufacturer.get());
 
-        productRepository.addProduct(product.getName(), product.getDescription(), product.getLinkToImg(), product.getPrice(), manufacturerID, categoryID);
+        productRepository.save(product);
         return product;
     }
 
     public List<Product> getAllProducts(){
-        return productRepository.getProductList();
+        return productRepository.findAll();
     }
 
     public Product update(Product product) throws ProductNotFoundException{
-        Optional<Product> productOptional = productRepository.getProductList().stream().filter(v -> {
+        Optional<Product> productOptional = productRepository.findAll().stream().filter(v -> {
             return v.equals(product);
         }).findAny();
         if(!productOptional.isPresent()) throw new ProductNotFoundException();
@@ -113,14 +115,13 @@ public class ProductServiceImpl implements ProductService {
 
         temp.setDescription(product.getDescription());
         temp.setName(product.getName());
-        productRepository.updateProductDescription(temp.getId(), temp.getDescription());
-        productRepository.updateProductName(temp.getId(), temp.getName());
+        productRepository.save(temp);
 
         return temp;
     }
 
     public void deleteProduct(Product product) throws ProductNotFoundException{
-        productRepository.deleteProduct(product);
+        productRepository.deleteById(product.getId());
     }
 
     public void deleteById(Long id) throws ProductNotFoundException{
@@ -135,7 +136,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     public Product getByName(String name) throws ProductNotFoundException{
-        Optional<Product> product = productRepository.getByName(name);
+        Optional<Product> product = productRepository.findByName(name);
         if(!product.isPresent())
             throw new ProductNotFoundException();
         return product.get();

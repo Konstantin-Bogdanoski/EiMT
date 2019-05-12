@@ -14,7 +14,7 @@ public class Category implements Comparable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "categoryID")
-    long ID;
+    long iD;
 
     @Column(name = "categoryName")
     String name;
@@ -30,10 +30,10 @@ public class Category implements Comparable{
         this.productList = productList;
     }
     public long getID() {
-        return ID;
+        return iD;
     }
     public void setID(long ID) {
-        this.ID = ID;
+        this.iD = ID;
     }
     public String getName() {
         return name;

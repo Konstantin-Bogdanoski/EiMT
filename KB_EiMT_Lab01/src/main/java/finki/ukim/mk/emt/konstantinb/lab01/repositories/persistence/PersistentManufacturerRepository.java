@@ -16,29 +16,20 @@ import java.util.Optional;
  */
 public interface PersistentManufacturerRepository extends JpaRepository<Manufacturer, Long> {
     /**Get list of all manufacturers */
-    @Query("select manufacturer from Manufacturer manufacturer")
-    List<Manufacturer> getManufacturerList();
+    List<Manufacturer> findAll();
 
     /**Delete manufacturer by ID */
-    @Query("delete from Manufacturer manufacturer where manufacturer.ID=:ID")
-    void removeManufacturer(@Param("ID") Long ID);
+    void deleteByID(Long ID);
 
     /**Get manufacturer by ID */
-    @Query("select manufacturer from Manufacturer manufacturer where manufacturer.ID=:ID")
-    Optional<Manufacturer> getByID(@Param("ID") Long ID);
+    Optional<Manufacturer> findByID(@Param("ID") Long ID);
 
     /**Get manufacturer by NAME */
-    @Query("select manufacturer from Manufacturer manufacturer where manufacturer.name=:name")
-    Optional<Manufacturer> getByName(@Param("name") String name);
-
-    /**Update manufacturerName */
-    @Query("update Manufacturer manufacturer set manufacturer.name=:name where manufacturer.ID=:ID")
-    void updateManufacturerName(@Param("name") String name, @Param("ID") Long ID);
+    Optional<Manufacturer> findByName(@Param("name") String name);
 
     /**Insert manufacturer*/
     @Transactional
     @Modifying
-    @Query(value = "insert into manufacturer (manufacturer_name) values (:name)", nativeQuery = true)
-    void addManufacturer(@Param("name") String name);
+    Manufacturer save(Manufacturer manufacturer);
 
 }

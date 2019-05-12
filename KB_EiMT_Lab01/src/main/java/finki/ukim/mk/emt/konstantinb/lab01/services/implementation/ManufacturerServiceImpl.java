@@ -23,12 +23,12 @@ public class ManufacturerServiceImpl implements ManufacturerService {
     }
 
     public Manufacturer addNewManufacturer(Manufacturer manufacturer) throws ManufacturerAlreadyExistsException{
-        if(manufacturerRepository.getManufacturerList().stream().anyMatch(v -> {
+        if (manufacturerRepository.findAll().stream().anyMatch(v -> {
             return v.equals(manufacturer);
         }))
             throw new ManufacturerAlreadyExistsException();
 
-        manufacturerRepository.addManufacturer(manufacturer.getName());
+        manufacturerRepository.save(manufacturer);
         return manufacturer;
     }
 
@@ -36,17 +36,17 @@ public class ManufacturerServiceImpl implements ManufacturerService {
         Manufacturer manufacturer = new Manufacturer();
         manufacturer.setName(manufacturerName);
 
-        if(manufacturerRepository.getManufacturerList().stream().anyMatch(v -> {
+        if (manufacturerRepository.findAll().stream().anyMatch(v -> {
             return v.equals(manufacturer);
         }))
             throw new ManufacturerAlreadyExistsException();
 
-        manufacturerRepository.addManufacturer(manufacturer.getName());
+        manufacturerRepository.save(manufacturer);
         return manufacturer;
     }
 
     public List<Manufacturer> getAllManufacturers(){
-        return manufacturerRepository.getManufacturerList();
+        return manufacturerRepository.findAll();
     }
 
     public Manufacturer update(Manufacturer manufacturer){
@@ -54,23 +54,23 @@ public class ManufacturerServiceImpl implements ManufacturerService {
     }
 
     public void delete(Manufacturer manufacturer) throws ManufacturerNotFoundException{
-        if(manufacturerRepository.getManufacturerList().stream().noneMatch(v -> {
+        if (manufacturerRepository.findAll().stream().noneMatch(v -> {
             return v.equals(manufacturer);
         }))
             throw new ManufacturerNotFoundException();
 
-        manufacturerRepository.removeManufacturer(manufacturer.getID());
+        manufacturerRepository.deleteByID(manufacturer.getID());
     }
 
     public Manufacturer getById(Long manufacturerID) throws ManufacturerNotFoundException{
-        Optional<Manufacturer> manufacturer = manufacturerRepository.findById(manufacturerID);
+        Optional<Manufacturer> manufacturer = manufacturerRepository.findByID(manufacturerID);
         if(!manufacturer.isPresent())
             throw new ManufacturerNotFoundException();
         return manufacturer.get();
     }
 
     public Manufacturer getByName(String name) throws ManufacturerNotFoundException{
-        Optional<Manufacturer> manufacturer = manufacturerRepository.getByName(name);
+        Optional<Manufacturer> manufacturer = manufacturerRepository.findByName(name);
         if(!manufacturer.isPresent())
             throw new ManufacturerNotFoundException();
         return manufacturer.get();

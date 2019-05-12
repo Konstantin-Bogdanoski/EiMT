@@ -18,34 +18,19 @@ import java.util.Optional;
 public interface PersistentCategoryRepository extends JpaRepository<Category,Long> {
 
     /**Get list of all categories */
-    @Query("select category from Category category")
-    List<Category> getCategories();
+    List<Category> findAll();
 
     /**Delete category by ID */
-    @Query("delete from Category category where category.ID=:ID")
-    void deleteCategory(@Param("ID") Long ID);
+    void deleteByID(@Param("ID") Long ID);
 
     /**Get category by ID */
-    @Query("select category from Category category where category.ID=:ID")
-    Optional<Category> getByID(@Param("ID") Long ID);
+    Optional<Category> findByID(@Param("ID") Long ID);
 
     /**Get category by NAME */
-    @Query("select category from Category category where category.name=:name")
-    Optional<Category> getByName(@Param("name") String name);
-
-    /**Update categoryName */
-    @Query("update Category category set category.name=:name where category.ID=:ID")
-    void updateCategoryName(@Param("name") String name, @Param("ID") Long ID);
+    Optional<Category> findByName(@Param("name") String name);
 
     /**Insert category*/
     @Transactional
     @Modifying
-    @Query(value = "insert into category (category_name) values (:name)", nativeQuery = true)
-    void addCategory(@Param("name") String name);
-
-    /**Update categoryProductList */
-    /*@Query("update Category category set category.products=:products where category.ID=:ID")
-    void updateCategoryProducts(@Param("products") List<Product> products, @Param("ID") Long ID);*/
-
-
+    Category save(Category category);
 }

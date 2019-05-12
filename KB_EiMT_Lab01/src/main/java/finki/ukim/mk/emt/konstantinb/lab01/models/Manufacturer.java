@@ -13,16 +13,16 @@ public class Manufacturer implements Comparable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "manufacturerID")
-    long ID;
+    long iD;
 
     @Column(name = "manufacturerName")
     String name;
 
     public long getID() {
-        return ID;
+        return iD;
     }
     public void setID(long ID) {
-        this.ID = ID;
+        this.iD = ID;
     }
     public String getName() {
         return name;

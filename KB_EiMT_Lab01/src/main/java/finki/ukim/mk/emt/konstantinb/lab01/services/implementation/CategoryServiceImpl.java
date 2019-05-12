@@ -24,12 +24,12 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     public Category addNewCategory(Category category) throws CategoryAlreadyExistsException{
-        if(categoryRepository.getCategories().stream().anyMatch(v -> {
+        if (categoryRepository.findAll().stream().anyMatch(v -> {
             return v.getName().equals(category.getName());
         }))
             throw new CategoryAlreadyExistsException();
 
-        categoryRepository.addCategory(category.getName());
+        categoryRepository.save(category);
         return category;
     }
 
@@ -37,17 +37,17 @@ public class CategoryServiceImpl implements CategoryService {
         Category category = new Category();
         category.setName(categoryName);
 
-        if(categoryRepository.getCategories().stream().anyMatch(v -> {
+        if (categoryRepository.findAll().stream().anyMatch(v -> {
             return v.equals(category);
         }))
             throw new CategoryAlreadyExistsException();
 
-        categoryRepository.addCategory(categoryName);
+        categoryRepository.save(category);
         return category;
     }
 
     public List<Category> getCategories(){
-        return categoryRepository.getCategories();
+        return categoryRepository.findAll();
     }
 
     public Category update(Category category) throws CategoryNotFoundException{
@@ -55,21 +55,21 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     public void delete(Category category) throws CategoryNotFoundException{
-        if(categoryRepository.getCategories().stream().noneMatch(v -> {
+        if (categoryRepository.findAll().stream().noneMatch(v -> {
             return v.equals(category);
         })) throw new CategoryNotFoundException();
-        
-        categoryRepository.deleteCategory(category.getID());
+
+        categoryRepository.deleteByID(category.getID());
     }
 
     public Category getById(Long categoryID) throws CategoryNotFoundException{
-        Optional<Category> category = categoryRepository.getByID(categoryID);
+        Optional<Category> category = categoryRepository.findByID(categoryID);
         if(!category.isPresent()) throw new CategoryNotFoundException();
         return category.get();
     }
 
     public Category getByName(String name) throws CategoryNotFoundException{
-        Optional<Category> category = categoryRepository.getByName(name);
+        Optional<Category> category = categoryRepository.findByName(name);
         if(!category.isPresent()) throw new CategoryNotFoundException();
         return category.get();
     }
