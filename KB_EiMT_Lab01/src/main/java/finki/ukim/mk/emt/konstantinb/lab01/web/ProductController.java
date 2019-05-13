@@ -76,6 +76,7 @@ public class ProductController {
         model.addAttribute("productList", productService.getAllProducts());
         model.addAttribute("manufacturerList", manufacturerService.getAllManufacturers());
         model.addAttribute("categories", categoryService.getCategories());
+
         return "productPage";
     }
 
@@ -85,6 +86,7 @@ public class ProductController {
         model.addAttribute("manufacturerList", manufacturerService.getAllManufacturers());
         model.addAttribute("categories", categoryService.getCategories());
         model.addAttribute("product", product);
+
         return "productAdd";
     }
 

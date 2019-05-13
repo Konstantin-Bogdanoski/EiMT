@@ -29,15 +29,17 @@ public class CheckoutController {
     public CheckoutController(ProductService productService, StripeServiceImpl stripService) {
         this.productService = productService;
         this.stripeService = stripService;
+        Stripe.apiKey = stripePublicKey;
     }
 
     @RequestMapping("/checkout/{id}")
-    public String checkoutProduct(@PathVariable("id") Long ID, Model model) {
+    public String checkoutProduct(@PathVariable("id") String ProductID, Long ID, Model model) {
+        model.addAttribute("product", productService.getById(ID));
         model.addAttribute("name", productService.getById(ID).getName());
         model.addAttribute("amount", productService.getById(ID).getPrice());
         model.addAttribute("stripePublicKey", stripePublicKey);
         model.addAttribute("currency", ChargeRequest.Currency.USD);
-        return "productPage";
+        return "checkoutProduct";
     }
 
     @PostMapping("/charge/{id}")
