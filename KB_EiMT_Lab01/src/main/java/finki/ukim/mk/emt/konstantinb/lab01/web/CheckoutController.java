@@ -20,13 +20,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 public class CheckoutController {
-    @Value("STRIPE_PUBLIC_KEY")
+    @Value("${STRIPE_PUBLIC_KEY}")
     private String stripePublicKey;
 
-    private StripeServiceImpl stripeService;
+    private StripeService stripeService;
     private ProductService productService;
 
-    public CheckoutController(ProductService productService, StripeServiceImpl stripService) {
+    public CheckoutController(ProductService productService, StripeService stripService) {
         this.productService = productService;
         this.stripeService = stripService;
     }
@@ -35,14 +35,14 @@ public class CheckoutController {
     public String checkoutProduct(@PathVariable("id") String ProductID, Long ID, Model model) {
         model.addAttribute("product", productService.getById(ID));
         model.addAttribute("name", productService.getById(ID).getName());
-        model.addAttribute("amount", productService.getById(ID).getPrice());
+        model.addAttribute("amount", (int) productService.getById(ID).getPrice() * 100);
         model.addAttribute("stripePublicKey", stripePublicKey);
         model.addAttribute("currency", ChargeRequest.Currency.USD);
         return "checkoutProduct";
     }
 
-    @PostMapping("/charge/{id}")
-    public String chargeProduct(@PathVariable("id") Long ID, ChargeRequest chargeRequest, Model model) throws StripeException {
+    @PostMapping("/charge")
+    public String chargeProduct(ChargeRequest chargeRequest, Model model) throws StripeException {
         chargeRequest.setDescription("Example charge");
         chargeRequest.setCurrency(ChargeRequest.Currency.USD);
         Charge charge = stripeService.charge(chargeRequest);

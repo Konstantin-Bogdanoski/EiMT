@@ -11,10 +11,10 @@
 </head>
 <body>
 <div class="container">
-    <form action='/charge/$(product.id)' method='POST' id='checkout-form'>
-        <input type='hidden' th:value='${product.price}' name='amount'/>
-        <label>Product: <span th:text='${product.name}'/></label>
-        <label>Price: <span th:text='${product.price}'/>$</label>
+    <form action='/charge' method='POST' id='checkout-form'>
+        <input type='hidden' th:value='${amount}' name='amount'/>
+        <label>Product: <span th:text='${product.name}'></span></label>
+        <label>Price: <span th:text='${product.price}'></span>$</label>
         <br>
 
         <!-- NOTE: data-key/data-amount/data-currency will be rendered by Thymeleaf -->

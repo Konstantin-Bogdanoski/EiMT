@@ -19,12 +19,12 @@ import java.util.Map;
 @Service
 public class StripeServiceImpl implements StripeService {
 
-    @Value("STRIP_PRIVATE_KEY")
-    private String stripPrivateKey;
+    @Value("${STRIPE_SECRET_KEY}")
+    private String stripePrivateKey;
 
     @PostConstruct
     public void init() {
-        Stripe.apiKey = stripPrivateKey;
+        Stripe.apiKey = stripePrivateKey;
     }
 
     public Charge charge(ChargeRequest chargeRequest) throws AuthenticationException, InvalidRequestException,
