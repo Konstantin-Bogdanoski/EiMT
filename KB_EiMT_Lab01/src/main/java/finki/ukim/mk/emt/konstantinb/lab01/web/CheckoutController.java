@@ -29,7 +29,6 @@ public class CheckoutController {
     public CheckoutController(ProductService productService, StripeServiceImpl stripService) {
         this.productService = productService;
         this.stripeService = stripService;
-        Stripe.apiKey = stripePublicKey;
     }
 
     @RequestMapping("/checkout/{id}")
