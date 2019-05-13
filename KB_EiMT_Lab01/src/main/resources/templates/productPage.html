@@ -32,6 +32,25 @@
             <br>
             <span th:text="${product.manufacturer?.name}"></span>
             <img th:src="${product.linkToImg}" class="productImg">
+            <form action='/charge/$(product.id)' method='POST' id='checkout-form'>
+                <input type='hidden' th:value='${product.price}' name='amount'/>
+                <label>Price: <span th:text='${product.price}'/>$</label>
+                <!-- NOTE: data-key/data-amount/data-currency will be rendered by Thymeleaf -->
+                <script
+                        src='https://checkout.stripe.com/checkout.js'
+                        class='stripe-button'
+                        th:attr='data-key=${stripePublicKey},
+         data-amount=${amount},
+         data-currency=${currency}'
+                        data-name='SportShop'
+                        data-description='Checkout'
+                        data-image
+                                ='https://cdn.dribbble.com/users/2790/screenshots/2382488/ss_monogram_michaelspitz.png'
+                        data-locale='auto'
+                        data-zip-code='false'>
+                </script>
+            </form>
+
             <form th:action="@{/}" th:method="delete" onsubmit="return deleteProduct(this, '${product.id}');">
                 <input name="productID" th:value="${product.id}" type="hidden">
                 <button class="btn btn-warning">Delete</button>
