@@ -4,16 +4,18 @@
     <meta charset="UTF-8">
     <title>Checkout Product</title>
     <link rel="stylesheet" href="/assets/vendor/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/css/checkoutProduct.css">
     <script src="/assets/vendor/jquery/jquery.min.js"></script>
     <script src="/assets/vendor/jquery-migrate/jquery-migrate.min.js"></script>
     <script src="/assets/vendor/popper.min.js"></script>
     <script src="/assets/vendor/bootstrap/bootstrap.min.js"></script>
 </head>
 <body>
-<div class="container">
+<div class="container myContainer">
     <form action='/charge' method='POST' id='checkout-form'>
         <input type='hidden' th:value='${amount}' name='amount'/>
-        <label>Product: <span th:text='${product.name}'></span></label>
+        <label>Product: <span th:text='${product.name}'></span></label><br>
+        <img th:src="${product.linkToImg}" style="width: 500px"><br>
         <label>Price: <span th:text='${product.price}'></span>$</label>
         <br>
 
