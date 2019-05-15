@@ -4,8 +4,10 @@ import com.stripe.Stripe;
 import com.stripe.exception.StripeException;
 import com.stripe.model.Charge;
 import finki.ukim.mk.emt.konstantinb.lab01.models.ChargeRequest;
+import finki.ukim.mk.emt.konstantinb.lab01.models.Transaction;
 import finki.ukim.mk.emt.konstantinb.lab01.services.ProductService;
 import finki.ukim.mk.emt.konstantinb.lab01.services.StripeService;
+import finki.ukim.mk.emt.konstantinb.lab01.services.TransactionService;
 import finki.ukim.mk.emt.konstantinb.lab01.services.implementation.StripeServiceImpl;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -14,6 +16,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.Date;
 
 /**
  * @author Konstantin Bogdanoski (konstantin.b@live.com)
@@ -25,10 +29,12 @@ public class CheckoutController {
 
     private StripeService stripeService;
     private ProductService productService;
+    private TransactionService transactionService;
 
-    public CheckoutController(ProductService productService, StripeService stripService) {
+    public CheckoutController(ProductService productService, StripeService stripService, TransactionService transactionService) {
         this.productService = productService;
         this.stripeService = stripService;
+        this.transactionService = transactionService;
     }
 
     @RequestMapping("/checkout/{id}")
@@ -41,8 +47,8 @@ public class CheckoutController {
         return "checkoutProduct";
     }
 
-    @PostMapping("/charge")
-    public String chargeProduct(ChargeRequest chargeRequest, Model model) throws StripeException {
+    @PostMapping("/charge/{id}")
+    public String chargeProduct(@PathVariable("id") Long ID, ChargeRequest chargeRequest, Model model) throws StripeException {
         chargeRequest.setDescription("Example charge");
         chargeRequest.setCurrency(ChargeRequest.Currency.USD);
         Charge charge = stripeService.charge(chargeRequest);
@@ -50,6 +56,15 @@ public class CheckoutController {
         model.addAttribute("status", charge.getStatus());
         model.addAttribute("chargeId", charge.getId());
         model.addAttribute("balance_transaction", charge.getBalanceTransaction());
+
+        if (charge.getStatus().equals("succeeded")) {
+            Transaction transaction = new Transaction();
+            transaction.setPurchasedProduct(productService.getById(ID));
+            transaction.setUsername(chargeRequest.getStripeEmail());
+            transaction.setTransactionDate(new Date());
+            transaction.setAmount(productService.getById(ID).getPrice());
+            transactionService.addNewTransaction(transaction);
+        }
         return "checkoutResult";
     }
 

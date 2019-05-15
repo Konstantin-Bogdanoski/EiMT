@@ -90,11 +90,9 @@ public class Product implements Comparable{
     public void setAccessoryList(List<Accessory> accessoryList) {
         this.accessoryList = accessoryList;
     }
-
     public double getPrice() {
         return price;
     }
-
     public void setPrice(double price) {
         this.price = price;
     }

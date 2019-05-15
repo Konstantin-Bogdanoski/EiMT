@@ -13,6 +13,15 @@ public class ChargeRequest {
     private Currency currency;
     private String stripeEmail;
     private String stripeToken;
+    private Product product;
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
 
     public String getDescription() {
         return description;

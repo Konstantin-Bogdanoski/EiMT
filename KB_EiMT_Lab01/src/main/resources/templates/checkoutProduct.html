@@ -12,7 +12,7 @@
 </head>
 <body>
 <div class="container myContainer">
-    <form action='/charge' method='POST' id='checkout-form'>
+    <form th:action="@{/charge/{productID}(productID=${product.id})}" method='POST' id='checkout-form'>
         <input type='hidden' th:value='${amount}' name='amount'/>
         <label>Product: <span th:text='${product.name}'></span></label><br>
         <img th:src="${product.linkToImg}" style="width: 500px"><br>
