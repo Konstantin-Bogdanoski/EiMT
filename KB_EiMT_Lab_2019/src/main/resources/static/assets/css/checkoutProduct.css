@@ -1,0 +1,12 @@
+body {
+    background: grey;
+}
+
+.myContainer {
+    margin-top: 50px;
+    text-align: center;
+    font-size: 2em;
+    top: 50%;
+    border: black 1px dashed;
+    background: white;
+}

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Checkout Product</title>
+    <link rel="stylesheet" href="/assets/vendor/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/css/checkoutProduct.css">
+    <script src="/assets/vendor/jquery/jquery.min.js"></script>
+    <script src="/assets/vendor/jquery-migrate/jquery-migrate.min.js"></script>
+    <script src="/assets/vendor/popper.min.js"></script>
+    <script src="/assets/vendor/bootstrap/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container myContainer">
+    <form th:action="@{/charge/{productID}(productID=${product.id})}" method='POST' id='checkout-form'>
+        <input type='hidden' th:value='${amount}' name='amount'/>
+        <label>Product: <span th:text='${product.name}'></span></label><br>
+        <img th:src="${product.linkToImg}" style="width: 500px"><br>
+        <label>Price: <span th:text='${product.price}'></span>$</label>
+        <br>
+
+        <!-- NOTE: data-key/data-amount/data-currency will be rendered by Thymeleaf -->
+        <script
+                src='https://checkout.stripe.com/checkout.js'
+                class='stripe-button'
+                th:attr='data-key=${stripePublicKey},
+         data-amount=${amount},
+         data-currency=${currency}'
+                data-name='SportShop'
+                data-description='Checkout'
+                data-image
+                        ='https://cdn.dribbble.com/users/2790/screenshots/2382488/ss_monogram_michaelspitz.png'
+                data-locale='auto'
+                data-zip-code='false'>
+        </script>
+    </form>
+</div>
+</body>
+</html>

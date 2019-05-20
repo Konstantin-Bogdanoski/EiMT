@@ -1,0 +1,52 @@
+<!--
+/**
+  *
+  * @author Konstantin Bogdanoski (konstantin.b@live.com)
+  *
+  */
+-->
+body{
+    text-align: center;
+}
+
+.myButton{
+    width: inherit;
+    padding: 5px;
+    margin: 5px;
+}
+
+.addButtons {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background: #0b93d5;
+}
+
+.header {
+    width: 100%;
+    background: #0b93d5;
+}
+
+.productImg{
+    width: 100px;
+    height: 100px;
+    display: inline-block;
+    float: right;
+}
+.myList:hover{
+    background: darkgray;
+}
+.myList{
+    display: inline-block;
+    float: left;
+    width: 277px;
+}
+
+a{
+    color: black;
+    margin: 0;
+    padding: 0;
+}
+a:hover{
+    color: black;
+}

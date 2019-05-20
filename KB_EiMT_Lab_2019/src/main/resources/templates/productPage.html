@@ -1,0 +1,63 @@
+<!--
+/**
+  *
+  * @author Konstantin Bogdanoski (konstantin.b@live.com)
+  *
+  */
+-->
+<!DOCTYPE html>
+<html lang="en" xmlns:th="thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Products</title>
+    <link rel="stylesheet" href="/assets/vendor/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/css/productPage.css">
+    <script src="/assets/vendor/scripts/productPage.js"></script>
+    <script src="/assets/vendor/jquery/jquery.min.js"></script>
+    <script src="/assets/vendor/jquery-migrate/jquery-migrate.min.js"></script>
+    <script src="/assets/vendor/popper.min.js"></script>
+    <script src="/assets/vendor/bootstrap/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="header-panel">
+    <div class="header">
+        <p>THERE WILL BE A MENU HERE</p>
+    </div>
+</div>
+<div class="container">
+    <ul class="list-group list myList" th:each="product : ${productList}">
+        <a th:href="@{/productPage/productID(ID=${product.id})}">
+        <li class="list-group-item myList">
+            <strong th:text="${product.name}"></strong>
+            <br>
+            <span th:text="${product.manufacturer?.name}"></span>
+            <img th:src="${product.linkToImg}" class="productImg">
+
+            <br>
+            <a th:href="@{/checkout/productID(ID=${product.id})}">
+                <button class="btn btn-primary">Checkout</button>
+            </a>
+            <form th:action="@{/}" th:method="delete" onsubmit="return deleteProduct(this, '${product.id}');">
+                <input name="productID" th:value="${product.id}" type="hidden">
+                <button class="btn btn-warning">Delete</button>
+            </form>
+        </li>
+        </a>
+
+    </ul>
+</div>
+<br>
+<div class="addButtons">
+    <div class="container">
+        <button class="btn btn-primary myButton" onclick="location.href='/productAdd'">Add new product</button>
+    </div>
+    <div class="container">
+        <button class="btn btn-primary myButton" onclick="location.href='/categoryAdd'">Add new category</button>
+    </div>
+    <div class="container">
+        <button class="btn btn-primary myButton" onclick="location.href='/manufacturerAdd'">Add new manufacturer
+        </button>
+    </div>
+</div>
+</body>
+</html>

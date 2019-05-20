@@ -1,0 +1,64 @@
+<!--
+/**
+  *
+  * @author Konstantin Bogdanoski (konstantin.b@live.com)
+  *
+  */
+-->
+<!DOCTYPE html>
+<html lang="en" xmlns:th="thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Products</title>
+    <link rel="stylesheet" href="/assets/vendor/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/css/productAdd.css">
+    <script src="/assets/vendor/jquery/jquery.min.js"></script>
+    <script src="/assets/vendor/jquery-migrate/jquery-migrate.min.js"></script>
+    <script src="/assets/vendor/popper.min.js"></script>
+    <script src="/assets/vendor/bootstrap/bootstrap.min.js"></script>
+    <title>Add Product</title>
+</head>
+<body>
+<form id="inputForm" class="form" enctype="multipart/form-data" method="post" action="/productAdd">
+    <strong>ADD NEW PRODUCT</strong>
+    <div class="form-group">
+        <label for="productName">Name</label>
+        <input class="form-control" type="text" id="productName" name="name" th:field="*{product.name}" placeholder="Product Name" required/>
+    </div>
+    <div class="form-group">
+        <label for="productDescription">Description</label>
+        <input class="form-control" type="text" id="productDescription" name="description" th:field="*{product.description}" placeholder="Product Description" required/>
+    </div>
+    <div class="form-group">
+        <label for="productImg">Image</label>
+        <input class="form-control" type="text" id="productImg" name="img" th:field="*{product.linkToImg}" placeholder="Link To Product Image" required/>
+    </div>
+    <div class="form-group">
+        <label for="productPrice">Price</label>
+        <input class="form-control" type="text" id="productPrice" name="img" th:field="*{product.price}" placeholder="Price of product" required/>
+    </div>
+    <div class="form-group">
+        <label for="manufacturerID">Manufacturer</label>
+        <select id="manufacturerID" class="form-group mySelect" name="manufacturerID" th:field="*{product.manufacturer.ID}" required>
+            <option value="0">Choose manufacturer</option>
+            <option th:each="m : ${manufacturerList}"
+                    th:text="${m.name}"
+                    th:value="${m.ID}">
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="categoryID">Category</label>
+        <select id="categoryID" class="form-group mySelect" th:field="*{product.category.ID}" name="categoryID" required>
+            <option value="0">Choose category</option>
+            <option th:each="c : ${categories}"
+                    th:text="${c.name}"
+                    th:value="${c.ID}">
+        </select>
+    </div>
+    <div class="form-group">
+        <button class="btn btn-primary" type="submit">Confirm</button>
+        <button class="btn btn-primary btn-danger" type="reset" onclick="location.href='/productPage'">Cancel</button>
+    </div>
+</form>
+</body>
+</html>
