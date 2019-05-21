@@ -8,11 +8,20 @@ package finki.ukim.mk.emt.konstantinb.lab01;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletComponentScan;
+import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @ServletComponentScan
 @SpringBootApplication
-public class Lab01Application {
-    public static void main(String[] args) {
-        SpringApplication.run(Lab01Application.class, args);
+public class EiMT_Lab2019 {
+
+    @Bean
+    public BCryptPasswordEncoder bCryptPasswordEncoder() {
+        return new BCryptPasswordEncoder();
     }
+
+    public static void main(String[] args) {
+        SpringApplication.run(EiMT_Lab2019.class, args);
+    }
+
 }

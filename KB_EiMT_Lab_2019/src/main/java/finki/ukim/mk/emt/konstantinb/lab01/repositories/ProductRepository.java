@@ -2,11 +2,7 @@ package finki.ukim.mk.emt.konstantinb.lab01.repositories;
 
 import finki.ukim.mk.emt.konstantinb.lab01.exceptions.ProductAlreadyExistsException;
 import finki.ukim.mk.emt.konstantinb.lab01.exceptions.ProductNotFoundException;
-import finki.ukim.mk.emt.konstantinb.lab01.models.Manufacturer;
 import finki.ukim.mk.emt.konstantinb.lab01.models.Product;
-import finki.ukim.mk.emt.konstantinb.lab01.services.ManufacturerService;
-import finki.ukim.mk.emt.konstantinb.lab01.services.implementation.ManufacturerServiceImpl;
-import finki.ukim.mk.emt.konstantinb.lab01.web.ProductController;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.PostConstruct;

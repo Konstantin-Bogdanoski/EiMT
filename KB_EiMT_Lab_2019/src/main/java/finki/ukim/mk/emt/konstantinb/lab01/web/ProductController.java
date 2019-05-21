@@ -12,6 +12,8 @@ import finki.ukim.mk.emt.konstantinb.lab01.models.Product;
 import finki.ukim.mk.emt.konstantinb.lab01.services.CategoryService;
 import finki.ukim.mk.emt.konstantinb.lab01.services.ManufacturerService;
 import finki.ukim.mk.emt.konstantinb.lab01.services.ProductService;
+import finki.ukim.mk.emt.konstantinb.lab01.services.UserService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -26,14 +28,21 @@ public class ProductController {
     private ProductService productService;
     private CategoryService categoryService;
     private ManufacturerService manufacturerService;
+    private UserService userService;
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
     private Product product;
     private Long manufacturerID;
     private Long categoryID;
 
-    public ProductController(ProductService productService, CategoryService categoryService, ManufacturerService manufacturerService){
+    public ProductController(ProductService productService, CategoryService categoryService,
+                             ManufacturerService manufacturerService,
+                             UserService userService,
+                             BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.productService = productService;
         this.categoryService = categoryService;
         this.manufacturerService = manufacturerService;
+        this.userService = userService;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
 
 
         //TEMPORARY PRODUCT, SO THE LIST ISN'T EMPTY
