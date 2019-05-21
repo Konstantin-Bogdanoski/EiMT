@@ -1,6 +1,5 @@
 package finki.ukim.mk.emt.konstantinb.lab01.web;
 
-import com.stripe.Stripe;
 import com.stripe.exception.StripeException;
 import com.stripe.model.Charge;
 import finki.ukim.mk.emt.konstantinb.lab01.models.ChargeRequest;
@@ -8,7 +7,6 @@ import finki.ukim.mk.emt.konstantinb.lab01.models.Transaction;
 import finki.ukim.mk.emt.konstantinb.lab01.services.ProductService;
 import finki.ukim.mk.emt.konstantinb.lab01.services.StripeService;
 import finki.ukim.mk.emt.konstantinb.lab01.services.TransactionService;
-import finki.ukim.mk.emt.konstantinb.lab01.services.implementation.StripeServiceImpl;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
