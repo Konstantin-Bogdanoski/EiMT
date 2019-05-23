@@ -4,6 +4,8 @@ import finki.ukim.mk.emt.konstantinb.lab01.exceptions.UserNotFoundException;
 import finki.ukim.mk.emt.konstantinb.lab01.models.User;
 import finki.ukim.mk.emt.konstantinb.lab01.repositories.persistence.PersistentUserRepository;
 import finki.ukim.mk.emt.konstantinb.lab01.services.UserService;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -37,5 +39,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public User findByUsername(String username) throws UserNotFoundException {
         return userRepository.findByUsername(username);
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
+        return userRepository.findByUsername(s);
     }
 }

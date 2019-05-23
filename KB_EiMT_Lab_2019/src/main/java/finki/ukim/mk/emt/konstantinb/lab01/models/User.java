@@ -1,6 +1,12 @@
 package finki.ukim.mk.emt.konstantinb.lab01.models;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -8,19 +14,32 @@ import java.util.Objects;
  */
 @Entity
 @Table(name = "User")
-public class User {
+public class User implements UserDetails {
+
     @Id
+    @Column(name = "userID")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long userID;
+
     @Column(name = "username")
-    String username;
+    private String username;
 
     @Column(name = "password")
-    String password;
+    private String password;
 
     @ManyToOne
-    @JoinColumn(name = "Role")
-    UserRole userRole;
+    @JoinColumn(name = "id")
+    private UserRole userRole;
 
-    public UserRole getUserRole() {
+    public long getUserID() {
+        return userID;
+    }
+
+    public void setUserID(long userID) {
+        this.userID = userID;
+    }
+
+    UserRole getUserRole() {
         return userRole;
     }
 
@@ -32,8 +51,35 @@ public class User {
         return username;
     }
 
+    @Override
+    public boolean isAccountNonExpired() {
+        return false;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return false;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return false;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
+
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        List<UserRole> roles = new ArrayList<>();
+        roles.add(getUserRole());
+        return roles;
     }
 
     public String getPassword() {

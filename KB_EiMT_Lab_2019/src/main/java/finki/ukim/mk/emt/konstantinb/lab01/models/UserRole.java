@@ -1,32 +1,41 @@
 package finki.ukim.mk.emt.konstantinb.lab01.models;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import org.springframework.security.core.GrantedAuthority;
+
+import javax.persistence.*;
 
 /**
  * @author Konstantin Bogdanoski (konstantin.b@live.com)
  */
 @Entity
 @Table(name = "UserRole")
-public class UserRole {
-    public enum Role {
-        ADMIN,
-        USER
-    }
-
+public class UserRole implements GrantedAuthority {
     @Id
-    @Column(name = "Role")
-    private Role role;
+    @Column(name = "iD")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long iD;
 
-    public Role getRole() {
-        return role;
+    @Column(name = "Name")
+    private String name;
+
+    @Override
+    public String getAuthority() {
+        return getName();
     }
 
-    public void setRole(Role role) {
-        this.role = role;
+    public long getID() {
+        return iD;
     }
 
+    public void setID(long ID) {
+        this.iD = ID;
+    }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 }

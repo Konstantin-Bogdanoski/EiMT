@@ -6,13 +6,12 @@ package finki.ukim.mk.emt.konstantinb.lab01.web;
  */
 
 import finki.ukim.mk.emt.konstantinb.lab01.exceptions.*;
-import finki.ukim.mk.emt.konstantinb.lab01.models.Category;
-import finki.ukim.mk.emt.konstantinb.lab01.models.Manufacturer;
-import finki.ukim.mk.emt.konstantinb.lab01.models.Product;
+import finki.ukim.mk.emt.konstantinb.lab01.models.*;
 import finki.ukim.mk.emt.konstantinb.lab01.services.CategoryService;
 import finki.ukim.mk.emt.konstantinb.lab01.services.ManufacturerService;
 import finki.ukim.mk.emt.konstantinb.lab01.services.ProductService;
 import finki.ukim.mk.emt.konstantinb.lab01.services.UserService;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -43,7 +42,6 @@ public class ProductController {
         this.manufacturerService = manufacturerService;
         this.userService = userService;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
-
 
         //TEMPORARY PRODUCT, SO THE LIST ISN'T EMPTY
         Product tempProduct = new Product();
@@ -90,6 +88,7 @@ public class ProductController {
     }
 
     @GetMapping("productAdd")
+    @PreAuthorize("isAuthenticated() && hasRole('ADMIN')")
     public String addProduct(Model model){
         model.addAttribute("productList", productService.getAllProducts());
         model.addAttribute("manufacturerList", manufacturerService.getAllManufacturers());
@@ -99,8 +98,10 @@ public class ProductController {
         return "productAdd";
     }
 
+
     @ExceptionHandler({ManufacturerNotFoundException.class, CategoryNotFoundException.class})
     @PostMapping("productAdd")
+    @PreAuthorize("isAuthenticated() && hasRole('ADMIN')")
     public String addProduct(HttpServletRequest request, Model model){
         String name = request.getParameter("name");
 
@@ -131,6 +132,7 @@ public class ProductController {
         return "redirect:/productPage";
     }
 
+    @PreAuthorize("isAuthenticated() && hasRole('ADMIN')")
     @GetMapping("categoryAdd")
     public String addCategory(Model model) {
         model.addAttribute("categories", categoryService.getCategories());
@@ -138,6 +140,7 @@ public class ProductController {
         return "categoryAdd";
     }
 
+    @PreAuthorize("isAuthenticated() && hasRole('ADMIN')")
     @PostMapping("categoryAdd")
     public String addCategory(HttpServletRequest request, Model model) {
         String categoryName = request.getParameter("name");
@@ -149,6 +152,7 @@ public class ProductController {
         return "redirect:/productPage";
     }
 
+    @PreAuthorize("isAuthenticated() && hasRole('ADMIN')")
     @GetMapping("manufacturerAdd")
     public String addManufacturer(Model model) {
         model.addAttribute("manufacturers", manufacturerService.getAllManufacturers());
@@ -156,6 +160,7 @@ public class ProductController {
         return "manufacturerAdd";
     }
 
+    @PreAuthorize("isAuthenticated() && hasRole('ADMIN')")
     @PostMapping("manufacturerAdd")
     public String addManufacturer(HttpServletRequest request, Model model) {
         String manufacturerName = request.getParameter("name");
@@ -175,6 +180,7 @@ public class ProductController {
         return "product";
     }
 
+    @PreAuthorize("isAuthenticated() && hasRole('ADMIN')")
     @RequestMapping(value = "/productPage/productID/{productEdit}")
     public String editProduct(@PathVariable("productEdit") String productEdit, String ID, Model model) throws IOException{
         Long id = Long.parseLong(ID);
@@ -183,12 +189,14 @@ public class ProductController {
         return "productEdit";
     }
 
+    @PreAuthorize("isAuthenticated() && hasRole('ADMIN')")
     @GetMapping("productEdit")
     public String getProductEdit(Model model){
         model.addAttribute("product", product);
         return "productEdit";
     }
 
+    @PreAuthorize("isAuthenticated() && hasRole('ADMIN')")
     @PostMapping("productEdit")
     public String productEdit(HttpServletRequest request, Model model){
         String newName = request.getParameter("name");
@@ -205,6 +213,7 @@ public class ProductController {
     }
 
     @DeleteMapping("/")
+    @PreAuthorize("isAuthenticated() && hasRole('ADMIN')")
     public String productDelete(HttpServletRequest request) {
         Long productID = Long.parseLong(request.getParameter("productID"));
         productService.deleteProduct(productService.getById(productID));

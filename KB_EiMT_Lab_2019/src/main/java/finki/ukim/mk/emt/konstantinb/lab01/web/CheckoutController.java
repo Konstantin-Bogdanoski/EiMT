@@ -8,6 +8,7 @@ import finki.ukim.mk.emt.konstantinb.lab01.services.ProductService;
 import finki.ukim.mk.emt.konstantinb.lab01.services.StripeService;
 import finki.ukim.mk.emt.konstantinb.lab01.services.TransactionService;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -35,6 +36,7 @@ public class CheckoutController {
         this.transactionService = transactionService;
     }
 
+    @PreAuthorize("isAuthenticated()")
     @RequestMapping("/checkout/{id}")
     public String checkoutProduct(@PathVariable("id") String ProductID, Long ID, Model model) {
         model.addAttribute("product", productService.getById(ID));
