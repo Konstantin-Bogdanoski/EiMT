@@ -12,6 +12,8 @@ import java.util.Optional;
 
 /**
  * @author Konstantin Bogdanoski (konstantin.b@live.com)
+ *  NOT NEEDED BECAUSE WE ARE USING MySQL WITH PERSISTENT LAYER
+ *  THIS CLASS WAS NEEDED FOR THE FIRST LABORATORY EXERCISE
  */
 @Repository
 public class ProductRepository {
